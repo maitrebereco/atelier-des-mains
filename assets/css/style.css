@@ -1,0 +1,545 @@
+/* =========================================================
+   L'Atelier des Mains — Design System
+   Bougies & savons artisanaux, faits main à Lausanne
+   ========================================================= */
+
+:root {
+  /* Palette officielle (voir document de structure) */
+  --creme: #FBFAF7;
+  --brun-fonce: #5C3818;
+  --dore: #B8860B;
+  --rouge-bougie: #7A1F1F;
+  --vert-sapin: #2F5233;
+  --terracotta: #9A3D13;
+  --vert-fonce: #085159;
+  --noir: #111111;
+
+  /* Usages sémantiques */
+  --bg: var(--creme);
+  --text: var(--noir);
+  --text-strong: var(--noir);
+  --accent: var(--dore);
+  --accent-hover: #9a6f08;
+  --badge: var(--rouge-bougie);
+
+  --font-heading: "Cormorant Garamond", Georgia, serif;
+  --font-body: "Jost", "Segoe UI", sans-serif;
+
+  --radius: 10px;
+  --shadow-soft: 0 8px 24px rgba(92, 56, 24, 0.12);
+  --container-w: 1180px;
+}
+
+/* ---------- Reset de base ---------- */
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+a { color: inherit; text-decoration: none; }
+ul { list-style: none; margin: 0; padding: 0; }
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--text-strong);
+  font-weight: 600;
+  line-height: 1.15;
+  margin: 0 0 .5em;
+}
+h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); letter-spacing: .01em; }
+h2 { font-size: clamp(1.8rem, 3.5vw, 2.6rem); }
+h3 { font-size: 1.35rem; }
+p { margin: 0 0 1em; }
+
+.container {
+  max-width: var(--container-w);
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+.section { padding: 72px 0; }
+.section--tight { padding: 40px 0; }
+.section--creme { background: var(--creme); }
+.section--brun { background: var(--rouge-bougie); color: var(--creme); }
+.section--brun h2, .section--brun h3 { color: var(--creme); }
+
+.eyebrow {
+  display: inline-block;
+  font-family: var(--font-body);
+  font-size: .78rem;
+  letter-spacing: .22em;
+  text-transform: uppercase;
+  color: var(--dore);
+  margin-bottom: .9em;
+}
+
+.center { text-align: center; }
+.muted { opacity: .78; }
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5em;
+  padding: 14px 30px;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 600;
+  font-size: .95rem;
+  letter-spacing: .03em;
+  border: 1px solid transparent;
+  cursor: pointer;
+  transition: all .2s ease;
+}
+.btn--primary {
+  background: var(--vert-sapin);
+  color: var(--creme);
+}
+.btn--primary:hover { background: #244027; transform: translateY(-1px); }
+.btn--primary {
+  animation: btn-pulse 2.2s ease-in-out infinite;
+}
+@keyframes btn-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(47,82,51,.55); }
+  50% { box-shadow: 0 0 0 10px rgba(47,82,51,0); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn--primary { animation: none; }
+}
+.btn--outline {
+  background: transparent;
+  border-color: var(--rouge-bougie);
+  color: var(--rouge-bougie);
+}
+.btn--outline:hover { background: var(--rouge-bougie); color: var(--creme); }
+.btn--light {
+  background: var(--creme);
+  color: var(--brun-fonce);
+}
+.btn--light:hover { background: #fff; }
+
+/* ---------- Header ---------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  background: linear-gradient(180deg, var(--vert-sapin) 0%, #1f3a24 55%, var(--rouge-bougie) 100%);
+  border-bottom: 1px solid rgba(0,0,0,.15);
+}
+.site-header .logo__name,
+.site-header .logo__name small,
+.site-header .main-nav a,
+.site-header .lang-switch__current,
+.site-header .lang-switch__menu a { color: var(--creme); }
+.site-header .lang-switch__menu a { color: var(--text); }
+.site-header .lang-switch__current { border-color: rgba(251,250,247,.4); }
+.site-header .main-nav a::after { background: #e9c977; }
+.site-header__inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 22px 0;
+}
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--font-heading);
+}
+.logo__mark {
+  width: 68px; height: 68px;
+  border-radius: 50%;
+  object-fit: cover;
+  flex-shrink: 0;
+  box-shadow: 0 2px 10px rgba(17,17,17,.12);
+}
+.logo__name {
+  font-size: 1.42rem;
+  letter-spacing: .04em;
+  font-weight: 600;
+  line-height: 1.1;
+}
+.logo__name small {
+  display: block;
+  font-family: var(--font-body);
+  font-size: .58rem;
+  letter-spacing: .18em;
+  text-transform: uppercase;
+  color: var(--dore);
+  font-weight: 500;
+}
+
+.main-nav { display: flex; gap: 30px; }
+.main-nav a {
+  font-size: 1.05rem;
+  font-weight: 500;
+  letter-spacing: .02em;
+  position: relative;
+  padding: 6px 0;
+}
+.main-nav a::after {
+  content: "";
+  position: absolute; left: 0; right: 100%; bottom: 0;
+  height: 2px; background: var(--dore);
+  transition: right .2s ease;
+}
+.main-nav a:hover::after, .main-nav a.is-active::after { right: 0; }
+
+.header-tools { display: flex; align-items: center; gap: 18px; }
+.lang-switch {
+  position: relative;
+  font-size: .85rem;
+}
+.lang-switch__current {
+  display: flex; align-items: center; gap: 6px;
+  cursor: pointer;
+  padding: 6px 12px;
+  border: 1px solid rgba(92,56,24,.25);
+  border-radius: 999px;
+}
+.lang-switch__menu {
+  display: none;
+  position: absolute; right: 0; top: calc(100% + 6px);
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: var(--shadow-soft);
+  min-width: 150px;
+  padding: 8px;
+  z-index: 200;
+}
+.lang-switch:hover .lang-switch__menu,
+.lang-switch.is-open .lang-switch__menu { display: block; }
+.lang-switch__menu a {
+  display: block;
+  padding: 8px 10px;
+  border-radius: 6px;
+  font-size: .88rem;
+}
+.lang-switch__menu a:hover { background: var(--creme); }
+
+.nav-toggle { display: none; }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative;
+  padding: 90px 0 100px;
+  overflow: hidden;
+}
+.hero__grid {
+  display: grid;
+  grid-template-columns: 1.05fr .95fr;
+  gap: 56px;
+  align-items: center;
+}
+.hero__tagline { font-size: 1.15rem; max-width: 46ch; }
+.hero__actions { display: flex; gap: 16px; margin-top: 30px; flex-wrap: wrap; }
+.hero__badges {
+  display: flex; gap: 26px; margin-top: 46px; flex-wrap: wrap;
+}
+.hero__badge {
+  display: flex; align-items: center; gap: 10px;
+  font-size: .85rem;
+  font-weight: 500;
+}
+.hero__badge .dot {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--dore);
+}
+.hero__image {
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+}
+
+/* ---------- Bandeau Collection de Noël ---------- */
+.noel-banner {
+  background: linear-gradient(180deg, var(--vert-sapin) 0%, #1f3a24 55%, var(--rouge-bougie) 100%);
+  color: var(--creme);
+  border-radius: var(--radius);
+  padding: 46px 44px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 30px;
+  flex-wrap: wrap;
+  position: relative;
+  overflow: hidden;
+}
+.noel-banner::before {
+  content: "❄";
+  position: absolute;
+  font-size: 8rem;
+  opacity: .08;
+  right: -10px; top: -30px;
+}
+.noel-banner h2 { color: var(--creme); margin-bottom: .25em; font-size: 2.1rem; }
+.noel-banner .eyebrow { color: #e9c977; font-size: .88rem; }
+.noel-banner p { color: rgba(251,250,247,.85); max-width: 46ch; font-size: 1.05rem; }
+
+/* ---------- Grille produits ---------- */
+.product-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 30px;
+  margin-top: 46px;
+}
+.product-card {
+  background: #fff;
+  border-radius: var(--radius);
+  overflow: hidden;
+  box-shadow: var(--shadow-soft);
+  transition: transform .2s ease;
+}
+.product-card:hover { transform: translateY(-4px); }
+.product-card__img {
+  aspect-ratio: 4/3;
+  overflow: hidden;
+  background: #eee;
+}
+.product-card__img img { width: 100%; height: 100%; object-fit: cover; }
+.product-card__body { padding: 20px 22px 24px; }
+.product-card__name { font-family: var(--font-heading); font-size: 1.25rem; margin-bottom: .2em; }
+.product-card__scent { font-size: .82rem; color: var(--dore); font-weight: 600; margin-bottom: .5em; }
+.product-card__desc { font-size: .88rem; margin-bottom: 1em; }
+.product-card__footer {
+  display: flex; align-items: center; justify-content: space-between;
+  flex-wrap: wrap; gap: 10px;
+}
+.product-card__actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.product-card__actions form { margin: 0; }
+.product-card__actions button.btn { -webkit-appearance: none; appearance: none; font: inherit; }
+.price { font-family: var(--font-heading); font-size: 1.15rem; font-weight: 600; color: var(--rouge-bougie); }
+.btn--small { padding: 9px 18px; font-size: .82rem; }
+
+/* ---------- Valeurs / icônes ---------- */
+.values {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 28px;
+  margin-top: 40px;
+  text-align: center;
+}
+.value-item__icon {
+  width: 54px; height: 54px; margin: 0 auto 14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--dore);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--dore);
+}
+.section--brun .value-item__icon { color: #e9c977; border-color: #e9c977; }
+.value-item__icon svg { width: 24px; height: 24px; }
+.value-item__title { font-weight: 600; font-size: .92rem; margin-bottom: .2em; }
+.value-item__desc { font-size: .82rem; opacity: .75; }
+
+/* ---------- Footer ---------- */
+.site-footer {
+  background: var(--vert-fonce);
+  color: var(--creme);
+  padding: 60px 0 26px;
+}
+.footer-grid {
+  display: grid;
+  grid-template-columns: 1.4fr 1fr 1fr 1fr;
+  gap: 40px;
+}
+.footer-grid h4 { color: var(--creme); font-size: .95rem; letter-spacing: .04em; text-transform: uppercase; font-family: var(--font-body); font-weight: 600; }
+.footer-grid a, .footer-grid p { font-size: .88rem; color: rgba(251,250,247,.78); }
+.footer-grid li { margin-bottom: 8px; }
+.footer-grid a:hover { color: var(--dore); }
+.footer-bottom {
+  margin-top: 48px;
+  padding-top: 22px;
+  border-top: 1px solid rgba(251,250,247,.15);
+  font-size: .78rem;
+  color: rgba(251,250,247,.6);
+  display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
+}
+
+/* ---------- Formulaire de contact ---------- */
+.contact-form .form-row { margin-bottom: 18px; }
+.contact-form label {
+  display: block;
+  font-size: .85rem;
+  font-weight: 600;
+  margin-bottom: 6px;
+  color: var(--text-strong);
+}
+.contact-form input,
+.contact-form textarea,
+.contact-form select {
+  width: 100%;
+  padding: 12px 14px;
+  border: 1px solid rgba(92,56,24,.25);
+  border-radius: 8px;
+  font-family: var(--font-body);
+  font-size: .95rem;
+  color: var(--text);
+  background: #fff;
+}
+.contact-form input:focus,
+.contact-form textarea:focus,
+.contact-form select:focus {
+  outline: none;
+  border-color: var(--dore);
+}
+.contact-form textarea { resize: vertical; }
+.contact-form button { border: none; cursor: pointer; }
+.contact-grid { display: grid; grid-template-columns: 1.2fr .8fr; gap: 56px; }
+@media (max-width: 480px) {
+  .contact-form .form-row[style*="grid-template-columns"] { grid-template-columns: 1fr !important; }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 900px) {
+  .main-nav { display: none; }
+  .nav-toggle { display: block; }
+  .hero__grid { grid-template-columns: 1fr; }
+  .product-grid { grid-template-columns: repeat(2, 1fr); }
+  .values { grid-template-columns: repeat(2, 1fr); }
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+}
+@media (max-width: 700px) {
+  .contact-grid { grid-template-columns: 1fr; }
+}
+@media (max-width: 560px) {
+  .product-grid { grid-template-columns: 1fr; }
+  .noel-banner { padding: 34px 26px; }
+  .footer-grid { grid-template-columns: 1fr; }
+}
+
+/* WhatsApp floating button */
+.whatsapp-float {
+  position: fixed;
+  bottom: 22px;
+  right: 22px;
+  width: 58px;
+  height: 58px;
+  background: #25D366;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 6px 18px rgba(17,17,17,.28);
+  z-index: 999;
+  transition: transform .18s ease, box-shadow .18s ease;
+}
+.whatsapp-float:hover {
+  transform: scale(1.08);
+  box-shadow: 0 8px 22px rgba(17,17,17,.32);
+}
+.whatsapp-float svg { width: 29px; height: 29px; fill: #fff; }
+@media (max-width: 560px) {
+  .whatsapp-float { width: 52px; height: 52px; bottom: 16px; right: 16px; }
+  .whatsapp-float svg { width: 26px; height: 26px; }
+}
+
+/* Neige qui tombe */
+.snowfall {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 400;
+}
+.snowfall span {
+  position: absolute;
+  top: -5vh;
+  color: #f4f8fb;
+  text-shadow: 0 1px 3px rgba(92,56,24,.35);
+  user-select: none;
+  animation-name: snow-fall;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+@keyframes snow-fall {
+  to { transform: translateY(112vh) translateX(var(--drift, 0px)); }
+}
+
+/* Traîneau du Père Noël traversant l'écran */
+.santa-sleigh {
+  position: absolute;
+  top: -70px;
+  left: -320px;
+  width: 260px;
+  height: auto;
+  border-radius: 10px;
+  z-index: 5;
+  pointer-events: none;
+  user-select: none;
+  animation: santa-fly 14s linear infinite;
+  animation-delay: 1s;
+  filter: drop-shadow(0 6px 12px rgba(0,0,0,.4));
+}
+@media (max-width: 700px) {
+  .santa-sleigh { width: 170px; top: -46px; }
+}
+@keyframes santa-fly {
+  0% { transform: translateX(0); opacity: 0; }
+  4% { opacity: 1; }
+  92% { opacity: 1; }
+  100% { transform: translateX(calc(100vw + 320px)); opacity: 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .santa-sleigh { display: none; }
+}
+
+/* Bouton musique de Noël */
+.music-toggle {
+  position: fixed;
+  right: 26px;
+  bottom: 96px;
+  width: 52px; height: 52px;
+  border-radius: 50%;
+  border: none;
+  background: var(--rouge-bougie);
+  color: var(--creme);
+  font-size: 1.3rem;
+  cursor: pointer;
+  box-shadow: 0 4px 16px rgba(0,0,0,.25);
+  z-index: 60;
+  animation: btn-pulse 2.2s ease-in-out infinite;
+}
+.music-toggle.is-playing { background: var(--vert-sapin); }
+@media (max-width: 600px) {
+  .music-toggle { right: 18px; bottom: 84px; width: 46px; height: 46px; font-size: 1.1rem; }
+}
+
+/* Cartes produit sans photo (nouveaux modèles / sur commande) */
+.product-card__img--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f1ead9, var(--creme));
+}
+.product-card__img--placeholder svg {
+  width: 46px;
+  height: 46px;
+  color: var(--dore);
+  opacity: .6;
+}
+.product-card__badge {
+  display: inline-block;
+  font-size: .68rem;
+  font-weight: 600;
+  letter-spacing: .04em;
+  text-transform: uppercase;
+  color: var(--vert-sapin);
+  background: rgba(47,82,51,.09);
+  padding: 3px 10px;
+  border-radius: 20px;
+  margin-bottom: 10px;
+}
+.section-subheading {
+  max-width: 640px;
+  margin: 60px auto 0;
+  text-align: center;
+}
+
+.product-options{display:flex;flex-wrap:wrap;gap:.45rem;margin:.8rem 0}.product-option{border:1px solid #b98b61;background:#fffaf4;color:#4b2f21;border-radius:999px;padding:.45rem .7rem;font:inherit;cursor:pointer}.product-option:hover,.product-option.is-selected{background:#6f3f21;color:#fff;border-color:#6f3f21}.product-option:focus-visible{outline:3px solid rgba(111,63,33,.25);outline-offset:2px}

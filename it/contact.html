@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contatti — L'Atelier des Mains</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/img/logo.jpg">
+<link rel="stylesheet" href="../assets/css/style.css">
+</head>
+<body>
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="index.html" class="logo">
+      <img src="../assets/img/logo-creme.png" alt="Logo L'Atelier des Mains" class="logo__mark">
+      <span class="logo__name">L'Atelier des Mains
+        <small>Candele &amp; saponi artigianali</small>
+      </span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Home</a>
+      <a href="bougies.html">Candele</a>
+      <a href="savons.html">Saponi</a>
+      <a href="collection-noel.html">Collezione di Natale</a>
+      <a href="revendeurs.html">Rivenditori</a>
+      <a href="cours-prives.html">Corsi privati</a>
+      <a href="a-propos.html">Chi siamo</a>
+      <a href="contact.html" class="is-active">Contatti</a>
+    </nav>
+    <div class="header-tools">
+      <div class="lang-switch">
+        <div class="lang-switch__current">IT ▾</div>
+        <div class="lang-switch__menu">
+          <a href="../fr/contact.html">🇫🇷 Français</a>
+          <a href="../en/contact.html">🇬🇧 English</a>
+          <a href="../de/contact.html">🇩🇪 Deutsch</a>
+          <a href="../ru/contact.html">🇷🇺 Русский</a>
+          <a href="../es/contact.html">🇪🇸 Español</a>
+          <a href="contact.html">🇮🇹 Italiano</a>
+        </div>
+      </div>
+      <a href="contact.html" class="btn btn--primary btn--small">Ordina ora</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section section--creme" style="padding-bottom:0;">
+    <div class="container center" style="max-width:640px;margin:0 auto;">
+      <span class="eyebrow">Scrivici</span>
+      <h1>Contatti &amp; ordini</h1>
+      <p class="muted">Una domanda, un desiderio di ordine su misura o un progetto di collaborazione? Scriveteci qui sotto.</p>
+    </div>
+  </section>
+
+  <section class="section section--creme">
+    <div class="container contact-grid" style="max-width:1000px;margin:0 auto;">
+
+      <form class="contact-form" onsubmit="event.preventDefault(); this.querySelector('.form-success').style.display='block'; this.reset();">
+        <div class="form-row">
+          <label for="nom">Nome completo *</label>
+          <input type="text" id="nom" name="nom" required placeholder="Il tuo nome e cognome">
+        </div>
+        <div class="form-row">
+          <label for="adresse">Indirizzo di spedizione *</label>
+          <input type="text" id="adresse" name="adresse" required placeholder="Via, numero, CAP, città">
+        </div>
+        <div class="form-row">
+          <label for="telephone">Telefono *</label>
+          <input type="tel" id="telephone" name="telephone" required placeholder="+41 79 000 00 00">
+        </div>
+        <div class="form-row">
+          <label for="email">E-mail *</label>
+          <input type="email" id="email" name="email" required placeholder="tu@esempio.com">
+        </div>
+        <div class="form-row" style="display:grid;grid-template-columns:2fr 1fr;gap:14px;">
+          <div>
+            <label for="produit">Prodotto desiderato</label>
+            <select id="produit" name="produit">
+              <option value="">— Scegli un prodotto —</option>
+              <option value="Bougie Sapin 3D (CHF 9.-)">Candela Abete 3D — CHF 9.–</option>
+              <option value="Coffret 4 Bougies de Noël (CHF 35.-)">Cofanetto 4 Candele di Natale — CHF 35.–</option>
+              <option value="Bougies à Bulles 3D, kit de 2 (CHF 18.-)">Candele a Bolle 3D (kit da 2) — CHF 18.–</option>
+              <option value="Savon Massage (CHF 7.-)">Sapone Massaggio — CHF 7.–</option>
+              <option value="Coffret Savons (CHF 27.-)">Cofanetto Saponi — CHF 27.–</option>
+              <optgroup label="Altre creazioni — su ordinazione">
+                <option value="Joyeux Noël (lettres, lot de 3) — Dès CHF 8.- le lot de 3">Buon Natale (lettere, set da 3) — da CHF 8.–</option>
+                <option value="2 Bougies de Noël (kit 2 pièces) — Dès CHF 12.- / pièce">2 Candele di Natale (kit 2 pezzi) — da CHF 12.–</option>
+                <option value="Cloche de Noël 3D — Dès CHF 14.-">Campanella di Natale 3D — da CHF 14.–</option>
+                <option value="Pomme de Pin — Dès CHF 12.- / pièce">Pigna — da CHF 12.–</option>
+                <option value="Houx et Baies d'Hiver — Dès CHF 12.- / pièce">Agrifoglio &amp; Bacche d'Inverno — da CHF 12.–</option>
+                <option value="Bougie à Bulles 3D Rosa et Karité (teinte pastel) — Dès CHF 13.- / pièce">Candela a Bolle 3D — Rosa &amp; Karité — da CHF 13.–</option>
+                <option value="Mini Bougies (lot de 6) — Dès CHF 15.- le lot de 6">Mini Candele (set da 6) — da CHF 15.–</option>
+                <option value="Grand Sapin de Noël (grand format) — Dès CHF 18.-">Grande Abete di Natale — da CHF 18.–</option>
+                <option value="Bougie Pilier / Colonne — Dès CHF 15.- / pièce">Candela Pilastro / Colonna — da CHF 15.–</option>
+                <option value="Bougie Tasse à Thé — Dès CHF 14.-">Candela Tazza da Tè — da CHF 14.–</option>
+                <option value="Livre de Noël — Dès CHF 16.-">Libro di Natale — da CHF 16.–</option>
+                <option value="Sapin de Noël 3D (2 pièces, styles assortis) — Dès CHF 12.- / pièce">Abete di Natale 3D (2 pezzi) — da CHF 12.–</option>
+                <option value="Bougie Nœud de Noël, Lavande — CHF 6.- / pièce ou coffret de 7 à CHF 42.-">Candela Fiocco di Natale (Lavanda) — CHF 6.– / cofanetto CHF 42.–</option>
+                <option value="Kit Boules de Noël, Lavande — CHF 6.- / pièce ou coffret de 7 à CHF 42.-">Kit Palline di Natale (Lavanda) — CHF 6.– / cofanetto CHF 42.–</option>
+                <option value="Kit Mini Fleurs Edition Automne — CHF 22.- le kit de 6">Kit Mini Fiori — Edizione Autunno — CHF 22.–</option>
+                <option value="Kit Mini Fleurs Edition de Noel — CHF 22.- le kit de 6">Kit Mini Fiori — Edizione Natale — CHF 22.–</option>
+                <option value="Savon Rainuré (lot de 2) — Dès CHF 8.- / pièce">Sapone Rigato (set da 2) — da CHF 8.–</option>
+                <option value="Savon Carré Massage (points de massage) — Dès CHF 9.-">Sapone Quadrato — Massaggio — da CHF 9.–</option>
+                <option value="Nid d'Abeille Fleur — Dès CHF 9.-">Nido d'Ape Fiore — da CHF 9.–</option>
+                <option value="Nid d'Abeille Miel — Dès CHF 9.-">Nido d'Ape (Miele) — da CHF 9.–</option>
+                <option value="Grande Fleur — Dès CHF 9.-">Grande Fiore — da CHF 9.–</option>
+                <option value="Petites Fleurs (lot de 4-6, rose) — Dès CHF 10.- le lot">Piccoli Fiori (set da 4-6) — da CHF 10.–</option>
+              </optgroup>
+              <option value="Autre / plusieurs produits">Altro / più prodotti</option>
+            </select>
+          </div>
+          <div>
+            <label for="quantite">Quantità</label>
+            <input type="number" id="quantite" name="quantite" min="1" max="10" value="1" step="1" oninput="if(this.value>10)this.value=10; if(this.value<1)this.value=1;">
+          </div>
+        </div>
+        <p class="muted" style="font-size:.78rem;margin-top:-10px;">Massimo 10 unità per articolo e per ordine. Per una quantità maggiore, scriveteci direttamente.</p>
+        <div class="form-row">
+          <label for="message">Il tuo messaggio (precisazioni, altri prodotti, ecc.)</label>
+          <textarea id="message" name="message" rows="4" placeholder="Aggiungi qui ogni precisazione utile al tuo ordine, o poni la tua domanda."></textarea>
+        </div>
+        <button type="submit" class="btn btn--primary">Invia la mia richiesta</button>
+        <p class="form-success" style="display:none;color:var(--vert-sapin);font-weight:600;margin-top:14px;">Grazie! Il tuo messaggio è stato inviato — ti risponderemo al più presto. ✔</p>
+      </form>
+
+      <div>
+        <h3 style="margin-top:0;">I nostri contatti</h3>
+        <p><strong>Indirizzo</strong><br>Route Aloys-Fauquez 129<br>Losanna, Svizzera</p>
+        <p><strong>Pagamento</strong><br>Pagamento sicuro tramite PayPal</p>
+        <p><strong>Spedizione</strong><br>Invio tramite la Posta Svizzera — spese calcolate automaticamente in base al vostro indirizzo al momento del pagamento.</p>
+        <p><strong>Risposta</strong><br>Rispondiamo solitamente entro 24-48h.</p>
+      </div>
+
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4 style="font-family:var(--font-heading);font-size:1.3rem;text-transform:none;letter-spacing:0;">L'Atelier des Mains</h4>
+        <p>Candele e saponi artigianali, fatti a mano a Losanna con essenze 100% naturali.</p>
+      </div>
+      <div>
+        <h4>Negozio</h4>
+        <ul>
+          <li><a href="bougies.html">Candele</a></li>
+          <li><a href="savons.html">Saponi</a></li>
+          <li><a href="collection-noel.html">Collezione di Natale</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Chi siamo</h4>
+        <ul>
+          <li><a href="a-propos.html">La nostra storia</a></li>
+          <li><a href="revendeurs.html">Diventa rivenditore</a></li>
+          <li><a href="cours-prives.html">Corsi privati</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Contatti</h4>
+        <ul>
+          <li>Route Aloys-Fauquez 129<br>Losanna, Svizzera</li>
+          <li><a href="contact.html">Modulo di contatto</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 L'Atelier des Mains. Tutti i diritti riservati.</span>
+      <span>Pagamento sicuro tramite PayPal · Spedizione Posta Svizzera</span>
+    </div>
+  </div>
+</footer>
+<a href="https://wa.me/41767522703?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20vos%20produits%20L%27Atelier%20des%20Mains" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Contatta su WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5.01L2.05 22l5.25-1.37a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.17c-.24.68-1.4 1.32-1.93 1.4-.5.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.08.99-2.37c.25-.28.55-.35.74-.35h.53c.17 0 .4-.04.62.47.24.57.8 1.97.87 2.11.07.14.11.31.02.5-.09.19-.14.31-.27.48-.14.17-.29.37-.41.5-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.07.95 1.97 1.25 2.25 1.39.28.14.44.12.61-.07.17-.19.7-.81.89-1.09.19-.28.38-.23.63-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.37z"/></svg>
+</a>
+<script>
+(function () {
+  var params = new URLSearchParams(window.location.search);
+  var produit = params.get('produit');
+  if (!produit) return;
+  var select = document.getElementById('produit');
+  if (!select) return;
+  var match = Array.prototype.find.call(select.options, function (opt) {
+    return opt.value === produit;
+  });
+  if (match) {
+    select.value = produit;
+  }
+  var form = document.querySelector('.contact-form');
+  if (form) form.scrollIntoView({ behavior: 'smooth', block: 'start' });
+})();
+</script>
+<script src="../assets/js/lang-switch.js"></script>
+</body>
+</html>

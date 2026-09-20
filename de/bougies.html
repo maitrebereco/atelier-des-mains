@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Kerzen — L'Atelier des Mains</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Jost:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="icon" href="../assets/img/logo.jpg">
+<link rel="stylesheet" href="../assets/css/style.css">
+<style>
+  /* Palette automne / Noël — page Bougies uniquement */
+  body.page-bougies { background: var(--creme); }
+  body.page-bougies .bougies-intro {
+    background: linear-gradient(135deg, #fbeade 0%, #f6dcc8 45%, #efd9c2 100%);
+    padding: 50px 0 46px;
+  }
+  body.page-bougies .bougies-intro__icon {
+    width: 52px; height: 52px; margin: 0 auto 16px;
+    border-radius: 50%;
+    border: 1.5px solid var(--terracotta);
+    display: flex; align-items: center; justify-content: center;
+    color: var(--terracotta);
+  }
+  body.page-bougies .bougies-intro__icon svg { width: 24px; height: 24px; }
+  body.page-bougies .product-card__scent { color: var(--terracotta); }
+  body.page-bougies .price { color: var(--rouge-bougie); }
+  body.page-bougies .btn--primary {
+    background: linear-gradient(135deg, var(--terracotta), var(--rouge-bougie));
+  }
+  body.page-bougies .btn--primary:hover { filter: brightness(1.08); }
+  body.page-bougies .btn--outline {
+    border-color: var(--terracotta); color: var(--terracotta);
+  }
+  body.page-bougies .btn--outline:hover { background: var(--terracotta); color: #fff; }
+  body.page-bougies .product-card__badge {
+    color: var(--vert-sapin); background: rgba(47,82,51,.1);
+  }
+  body.page-bougies .product-card__img--placeholder {
+    background: linear-gradient(135deg, #f6ddc9, #fbeade);
+  }
+  body.page-bougies .product-card__img--placeholder svg { color: var(--terracotta); }
+  body.page-bougies .eyebrow { color: var(--terracotta); }
+  body.page-bougies .section-subheading .eyebrow { color: var(--terracotta); }
+</style>
+</head>
+<body class="page-bougies">
+
+<header class="site-header">
+  <div class="container site-header__inner">
+    <a href="index.html" class="logo">
+      <img src="../assets/img/logo-creme.png" alt="Logo L'Atelier des Mains" class="logo__mark">
+      <span class="logo__name">L'Atelier des Mains
+        <small>Handgemachte Kerzen &amp; Seifen</small>
+      </span>
+    </a>
+    <nav class="main-nav">
+      <a href="index.html">Startseite</a>
+      <a href="bougies.html" class="is-active">Kerzen</a>
+      <a href="savons.html">Seifen</a>
+      <a href="collection-noel.html">Weihnachtskollektion</a>
+      <a href="revendeurs.html">Wiederverkäufer</a>
+      <a href="cours-prives.html">Private Kurse</a>
+      <a href="a-propos.html">Über uns</a>
+      <a href="contact.html">Kontakt</a>
+    </nav>
+    <div class="header-tools">
+      <div class="lang-switch">
+        <div class="lang-switch__current">DE ▾</div>
+        <div class="lang-switch__menu">
+          <a href="../fr/bougies.html">🇫🇷 Français</a>
+          <a href="../en/bougies.html">🇬🇧 English</a>
+          <a href="../de/bougies.html">🇩🇪 Deutsch</a>
+          <a href="../ru/bougies.html">🇷🇺 Русский</a>
+          <a href="../es/bougies.html">🇪🇸 Español</a>
+          <a href="../it/bougies.html">🇮🇹 Italiano</a>
+        </div>
+      </div>
+      <a href="contact.html" class="btn btn--primary btn--small">Jetzt bestellen</a>
+    </div>
+  </div>
+</header>
+
+<main>
+  <section class="section section--creme">
+    <div class="container center" style="max-width:640px;margin:0 auto 10px;">
+      <span class="eyebrow">Unser Shop</span>
+      <h1>Unsere handgemachten Kerzen</h1>
+      <p class="muted">Natürliches Sojawachs, von Hand gefertigt, für eine warme und einzigartige Atmosphäre.</p>
+    </div>
+  </section>
+
+  <!-- PRESENTATION / BIO -->
+  <section class="section bougies-intro">
+    <div class="container center" style="max-width:680px;">
+      <div class="bougies-intro__icon">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4"><path d="M12 2.5c-1.1 1.5-1.7 2.5-1.7 3.4a1.7 1.7 0 0 0 3.4 0c0-.9-.6-1.9-1.7-3.4z"/><rect x="8.7" y="8.3" width="6.6" height="12.2" rx="1.2"/><line x1="8.7" y1="13" x2="15.3" y2="13"/></svg>
+      </div>
+      <span class="eyebrow" style="color:var(--terracotta);">Von Hand gefertigt, mit Leidenschaft</span>
+      <h2 style="margin-bottom:14px;">Jede Kerze erzählt eine Geschichte</h2>
+      <p class="muted" style="margin:0 auto 22px;">Gebürtig aus Brasilien und schon als Kind vom Kunsthandwerk fasziniert, habe ich L'Atelier des Mains in Lausanne gegründet, um 100% natürlichen Kerzen Leben einzuhauchen — einzeln von Hand gegossen, mit derselben Geduld wie meine ersten Häkelarbeiten.</p>
+      <a href="a-propos.html" class="btn btn--outline btn--small">Unsere Geschichte lesen</a>
+    </div>
+  </section>
+
+  <section class="section section--creme" style="padding-top:0;">
+    <div class="container">
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-card__img">
+            <img src="../assets/img/bougie-sapin-3d.jpg" alt="3D-Tannenbaumkerze">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">3D-Tannenbaumkerze</h3>
+            <div class="product-card__scent">Duft nach Wahl</div>
+            <p class="product-card__desc">Eine dekorative und elegante Kerze, die Ihrem Zuhause einen Hauch Magie verleiht. Von Hand gefertigt mit hochwertigem Wachs und natürlichen Düften, sorgt sie für eine sanfte, warme Atmosphäre. Erhältlich in mehreren Farben.</p>
+            <div class="product-card__footer">
+              <span class="price">CHF 9.–</span>
+              <div class="product-card__actions">
+                <a href="../assets/img/bougie-sapin-3d.jpg" target="_blank" rel="noopener" class="btn btn--outline btn--small">Ansehen</a>
+                <a href="https://www.paypal.com/ncp/payment/G69QCT3JFPEPW" target="_blank" rel="noopener" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img">
+            <img src="../assets/img/coffret-4-bougies-noel.jpg" alt="Set mit 4 Weihnachtskerzen">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">Set mit 4 Weihnachtskerzen</h3>
+            <div class="product-card__scent">Weihnachtsmann · Tannenbaum · Glocke · Tannenzapfen</div>
+            <p class="product-card__desc">Vier handgefertigte Kerzen in den ikonischen Formen der Weihnachtszeit, für eine warme und magische Atmosphäre. Die perfekte Geschenkidee.</p>
+            <div class="product-card__footer">
+              <span class="price">CHF 35.–</span>
+              <div class="product-card__actions">
+                <a href="collection-noel.html" class="btn btn--outline btn--small">Ansehen</a>
+                <a href="https://www.paypal.com/ncp/payment/VH82392T37BQ2" target="_blank" rel="noopener" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img">
+            <img src="../assets/img/bougies-bulles-3d-noel.jpg" alt="3D-Blasenkerzen, Weihnachtsedition">
+          </div>
+          <div class="product-card__body">
+            <h3 class="product-card__name">3D-Blasenkerzen</h3>
+            <div class="product-card__scent">Weihnachtsedition · erhältlich in Rot und Grün</div>
+            <p class="product-card__desc">Kerzen in Blasenform, verziert mit Stechpalme und roten Beeren, für eine magische und originelle Note auf Ihrem Festtagstisch. Hochwertiges Sojawachs, natürliche Düfte.</p>
+            <div class="product-card__footer">
+              <span class="price">CHF 18.– <span style="font-size:.7rem;font-weight:500;opacity:.7;">/ Set mit 2 Stück</span></span>
+              <div class="product-card__actions">
+                <a href="../assets/img/bougies-bulles-3d-noel.jpg" target="_blank" rel="noopener" class="btn btn--outline btn--small">Ansehen</a>
+                <a href="https://www.paypal.com/ncp/payment/2BF5HMYELYZMS" target="_blank" rel="noopener" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <section class="section section--creme">
+    <div class="container">
+      <div class="center section-subheading">
+        <span class="eyebrow">Neuheiten</span>
+        <h2>Weitere Kreationen — auf Bestellung</h2>
+        <p class="muted">Neue Kerzenmodelle, von Hand auf Anfrage gefertigt. Lieferzeit: 3 bis 7 Tage.</p>
+      </div>
+      <div class="product-grid">
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/bougie-joyeux-noel.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Frohe Weihnachten</h3>
+            <div class="product-card__scent">Buchstaben, 3er-Set · Orange &amp; Zimt</div>
+            <p class="product-card__desc">Drei leuchtende Buchstaben „Frohe Weihnachten", um Ihren Eingang oder Festtagstisch zu erhellen.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 8.– für das 3er-Set</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=Joyeux%20No%C3%ABl%20%28lettres%2C%20lot%20de%203%29%20%E2%80%94%20D%C3%A8s%20CHF%208.-%20le%20lot%20de%203" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/bougie-2-pieces-noel.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">2 Weihnachtskerzen</h3>
+            <div class="product-card__scent">2er-Set · Kokos &amp; Vanille</div>
+            <p class="product-card__desc">Ein Duo festlich geformter Kerzen mit süßem Kokos-Vanille-Duft.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 12.– / Stück</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=2%20Bougies%20de%20No%C3%ABl%20%28kit%202%20pi%C3%A8ces%29%20%E2%80%94%20D%C3%A8s%20CHF%2012.-%20/%20pi%C3%A8ce" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/bougie-cloche-noel-3d.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">3D-Weihnachtsglocke</h3>
+            <div class="product-card__scent">Honig &amp; Vanille</div>
+            <p class="product-card__desc">Eine Kerze in Glockenform mit Honig-Vanille-Duft, für eine sanfte, warme Atmosphäre.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 14.–</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=Cloche%20de%20No%C3%ABl%203D%20%E2%80%94%20D%C3%A8s%20CHF%2014.-" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/bougie-pomme-de-pin.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Tannenzapfen</h3>
+            <div class="product-card__scent">Orange, Zimt, Kaffee &amp; Schokolade</div>
+            <p class="product-card__desc">Strukturiertes Detail im Tannenzapfen-Look, süßer Duft nach Orange, Zimt, Kaffee und Schokolade.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 12.– / Stück</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=Pomme%20de%20Pin%20%E2%80%94%20D%C3%A8s%20CHF%2012.-%20/%20pi%C3%A8ce" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/bougie-houx-baies.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Stechpalme &amp; Winterbeeren</h3>
+            <div class="product-card__scent">Lavendel &amp; Mandel</div>
+            <p class="product-card__desc">Motiv aus Stechpalme und Winterbeeren, beruhigender Lavendel-Mandel-Duft.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 12.– / Stück</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=Houx%20et%20Baies%20d%27Hiver%20%E2%80%94%20D%C3%A8s%20CHF%2012.-%20/%20pi%C3%A8ce" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/bougie-bulles-rosa-karite.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">3D-Blasenkerze — Rosa &amp; Sheabutter</h3>
+            <div class="product-card__scent">Pastellton · Rose &amp; Sheabutter</div>
+            <p class="product-card__desc">Unsere Blasenkerze in einem neuen Pastellton, mit Rosen-Sheabutter-Duft.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 13.– / Stück</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=Bougie%20%C3%A0%20Bulles%203D%20Rosa%20et%20Karit%C3%A9%20%28teinte%20pastel%29%20%E2%80%94%20D%C3%A8s%20CHF%2013.-%20/%20pi%C3%A8ce" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/mini-bougies-lot-6.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Mini-Kerzen</h3>
+            <div class="product-card__scent">6er-Set · nach Wahl</div>
+            <p class="product-card__desc">Ein Sortiment aus Mini-Kerzen, perfekt, um mehrere Düfte zu entdecken oder zu verschenken.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 15.– für das 6er-Set</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=Mini%20Bougies%20%28lot%20de%206%29%20%E2%80%94%20D%C3%A8s%20CHF%2015.-%20le%20lot%20de%206" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/grand-sapin-noel.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Großer Weihnachtsbaum</h3>
+            <div class="product-card__scent">großes Format · Reis, Kokos &amp; Honig</div>
+            <p class="product-card__desc">Unser größter Weihnachtsbaum, Duft nach Reis, Kokos und Honig — das Herzstück Ihrer Dekoration.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 18.–</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=Grand%20Sapin%20de%20No%C3%ABl%20%28grand%20format%29%20%E2%80%94%20D%C3%A8s%20CHF%2018.-" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/bougie-pilier-colonne.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Säulenkerze / Stumpenkerze</h3>
+            <div class="product-card__scent">Orange &amp; Zimt</div>
+            <p class="product-card__desc">Eine elegante Säulenkerze mit Orange-Zimt-Duft, für eine zeitlose Dekoration.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 15.– / Stück</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=Bougie%20Pilier%20/%20Colonne%20%E2%80%94%20D%C3%A8s%20CHF%2015.-%20/%20pi%C3%A8ce" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img">
+            <img src="../assets/img/bougie-tasse-the-noel.jpg" alt="Teetassen-Kerze, Weihnachtsedition">
+          </div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Teetassen-Kerze — Weihnachtsgrün</h3>
+            <div class="product-card__scent">Honig &amp; Vanille</div>
+            <p class="product-card__desc">Eine Kerze in Form einer Teetasse, mit Honig-Vanille-Duft — eine originelle Geschenkidee. Erhältlich in mehreren Farben und Düften.</p>
+            <div class="product-card__footer">
+              <span class="price">CHF 14.–</span>
+              <div class="product-card__actions">
+                <a href="https://www.paypal.com/ncp/payment/SAWRS2A9RZHAQ" target="_blank" rel="noopener" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img">
+            <img src="../assets/img/bougie-tasse-the-noel-bleu.jpg" alt="Teetassen-Kerze, Farbton Winterblau">
+          </div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Teetassen-Kerze — Winterblau</h3>
+            <div class="product-card__scent">Motiv Glocken &amp; Tannenbäume</div>
+            <p class="product-card__desc">Dieselbe Teetasse in einem Winterblau-Farbton, mit Motiv aus Glocken und verschneitem Dorf — eine originelle Geschenkidee.</p>
+            <div class="product-card__footer">
+              <span class="price">CHF 14.–</span>
+              <div class="product-card__actions">
+                <a href="https://www.paypal.com/ncp/payment/SAWRS2A9RZHAQ" target="_blank" rel="noopener" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/livre-de-noel.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Weihnachtsbuch</h3>
+            <div class="product-card__scent">Orange, Zimt, Kaffee &amp; Schokolade</div>
+            <p class="product-card__desc">Eine Kerze in Buchform, mit süßem Winterduft.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 16.–</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=Livre%20de%20No%C3%ABl%20%E2%80%94%20D%C3%A8s%20CHF%2016.-" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img"><img src="../assets/img/sapin-noel-3d-assortis.jpg" alt=""></div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">3D-Weihnachtsbaum</h3>
+            <div class="product-card__scent">2 Stück, unterschiedliche Stile · Kokos &amp; Vanille</div>
+            <p class="product-card__desc">Zwei 3D-Weihnachtsbäume in unterschiedlichen Stilen, mit Kokos-Vanille-Duft.</p>
+            <div class="product-card__footer">
+              <span class="price">Ab CHF 12.– / Stück</span>
+              <div class="product-card__actions">
+                <a href="contact.html?produit=Sapin%20de%20No%C3%ABl%203D%20%282%20pi%C3%A8ces%2C%20styles%20assortis%29%20%E2%80%94%20D%C3%A8s%20CHF%2012.-%20/%20pi%C3%A8ce" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img">
+            <img src="../assets/img/bougie-noeud-noel.jpg" alt="Weihnachtsschleifen-Kerze, Duft Lavendel">
+          </div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Weihnachtsschleifen-Kerze</h3>
+            <div class="product-card__scent">Lavendel</div>
+            <p class="product-card__desc">Eine Kerze in Schleifenform, verziert mit Stechpalme, mit beruhigendem Lavendelduft. Erhältlich einzeln oder im 7er-Set.</p>
+            <div class="product-card__footer">
+              <span class="price">CHF 6.– / Stück <span style="font-size:.7rem;font-weight:500;opacity:.7;">· 7er-Set: CHF 42.–</span></span>
+              <div class="product-card__actions">
+                <a href="https://www.paypal.com/ncp/payment/TCGB54TLZHARQ" target="_blank" rel="noopener" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img">
+            <img src="../assets/img/kit-boules-noel-lavande.jpg" alt="Weihnachtskugel-Set, Duft Lavendel">
+          </div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Weihnachtskugel-Set</h3>
+            <div class="product-card__scent">Lavendel</div>
+            <p class="product-card__desc">Kerzen in Form von Weihnachtskugeln, mit zarter Schleife und Schneeflocken, Lavendelduft. Erhältlich einzeln oder im 7er-Set.</p>
+            <div class="product-card__footer">
+              <span class="price">CHF 6.– / Stück <span style="font-size:.7rem;font-weight:500;opacity:.7;">· 7er-Set: CHF 42.–</span></span>
+              <div class="product-card__actions">
+                <a href="https://www.paypal.com/ncp/payment/GJL57F5A4V5AE" target="_blank" rel="noopener" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img">
+            <img src="../assets/img/kit-mini-fleurs-automne.jpg" alt="Mini-Blumen-Set, Herbstedition">
+          </div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Mini-Blumen-Set — Herbstedition</h3>
+            <div class="product-card__scent">Orange &amp; Zimt, Vanille, Karamell, Schokolade, Honig, Gewürzkürbis</div>
+            <p class="product-card__desc">Sechs Mini-Blumenkerzen in herbstlichen Farbtönen, für eine warme Atmosphäre. Sechs süße Düfte zur Wahl.</p>
+            <div class="product-card__footer">
+              <span class="price">CHF 22.– für das 6er-Set</span>
+              <div class="product-card__actions">
+                <a href="https://www.paypal.com/ncp/payment/EWQQAYV2ZVB4Q" target="_blank" rel="noopener" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="product-card">
+          <div class="product-card__img">
+            <img src="../assets/img/kit-mini-fleurs-noel.jpg" alt="Mini-Blumen-Set, Weihnachtsedition">
+          </div>
+          <div class="product-card__body">
+            <span class="product-card__badge">Auf Bestellung</span>
+            <h3 class="product-card__name">Mini-Blumen-Set — Weihnachtsedition</h3>
+            <div class="product-card__scent">Schneeweiß, Weihnachtsrot, Tannengrün, Frostrosa, Winterlavendel, Glitzerrot</div>
+            <p class="product-card__desc">Sechs Mini-Blumenkerzen in weihnachtlichen Farben, mit goldenem Glitzerfinish, um Ihre Festtage zu erhellen.</p>
+            <div class="product-card__footer">
+              <span class="price">CHF 22.– für das 6er-Set</span>
+              <div class="product-card__actions">
+                <a href="https://www.paypal.com/ncp/payment/V298FACFQPN5C" target="_blank" rel="noopener" class="btn btn--primary btn--small">Jetzt bestellen</a>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-footer">
+  <div class="container">
+    <div class="footer-grid">
+      <div>
+        <h4 style="font-family:var(--font-heading);font-size:1.3rem;text-transform:none;letter-spacing:0;">L'Atelier des Mains</h4>
+        <p>Handgemachte Kerzen und Seifen aus Lausanne mit 100% natürlichen Duftstoffen.</p>
+      </div>
+      <div>
+        <h4>Shop</h4>
+        <ul>
+          <li><a href="bougies.html">Kerzen</a></li>
+          <li><a href="savons.html">Seifen</a></li>
+          <li><a href="collection-noel.html">Weihnachtskollektion</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Über uns</h4>
+        <ul>
+          <li><a href="a-propos.html">Unsere Geschichte</a></li>
+          <li><a href="revendeurs.html">Wiederverkäufer werden</a></li>
+          <li><a href="cours-prives.html">Private Kurse</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4>Kontakt</h4>
+        <ul>
+          <li>Route Aloys-Fauquez 129<br>Lausanne, Schweiz</li>
+          <li><a href="contact.html">Kontaktformular</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <span>© 2026 L'Atelier des Mains. Alle Rechte vorbehalten.</span>
+      <span>Sichere Zahlung via PayPal · Versand mit der Schweizer Post</span>
+    </div>
+  </div>
+</footer>
+<a href="https://wa.me/41767522703?text=Bonjour%2C%20je%20suis%20int%C3%A9ress%C3%A9%28e%29%20par%20vos%20produits%20L%27Atelier%20des%20Mains" target="_blank" rel="noopener" class="whatsapp-float" aria-label="Contacter sur WhatsApp">
+  <svg viewBox="0 0 24 24"><path d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.48 1.32 5.01L2.05 22l5.25-1.37a9.9 9.9 0 0 0 4.74 1.2h.01c5.46 0 9.9-4.45 9.9-9.91 0-2.65-1.03-5.14-2.9-7.01A9.82 9.82 0 0 0 12.04 2zm5.8 14.17c-.24.68-1.4 1.32-1.93 1.4-.5.08-1.11.11-1.79-.11-.41-.13-.94-.31-1.62-.6-2.85-1.23-4.71-4.1-4.85-4.29-.14-.19-1.16-1.54-1.16-2.94s.73-2.08.99-2.37c.25-.28.55-.35.74-.35h.53c.17 0 .4-.04.62.47.24.57.8 1.97.87 2.11.07.14.11.31.02.5-.09.19-.14.31-.27.48-.14.17-.29.37-.41.5-.14.14-.28.29-.12.57.16.28.72 1.19 1.55 1.93 1.07.95 1.97 1.25 2.25 1.39.28.14.44.12.61-.07.17-.19.7-.81.89-1.09.19-.28.38-.23.63-.14.26.09 1.63.77 1.91.91.28.14.47.21.53.33.07.12.07.68-.17 1.37z"/></svg>
+</a>
+<script src="../assets/js/lang-switch.js"></script>
+</body>
+</html>
