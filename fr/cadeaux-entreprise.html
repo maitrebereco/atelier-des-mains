@@ -3,7 +3,7 @@
 <title>Cadeaux d’entreprise personnalisés — L’Atelier des Mains</title>
 <meta name="description" content="Bougies artisanales pour les cadeaux de Noël de votre entreprise à Lausanne. Logo, adresse, téléphone, message et sac cadeau personnalisés. Devis dès 10 pièces.">
 <link rel="icon" href="../assets/img/logo.jpg"><link rel="stylesheet" href="../assets/css/style.css">
-<style>.ce #productChoices{margin-top:12px;display:grid;gap:5px}.ce #productChoices label{margin-top:6px}.ce .prod:has(#productChoices){grid-column:span 1}</style><style>@media print{body>*:not(main),main>section:not(.ce),.ce .hero,.ce .panel,.ce .stage,.ce .bag-preview,.ce #paypal,.ce #go,.ce #addQuote,.ce #quoteHint,.ce #quoteItems button,.ce #copy,.ce #printQuote,.ce #paymentHint{display:none!important}.ce .grid{display:block}.ce .preview{position:static}.ce .devis pre{white-space:pre-wrap;font-size:12pt;max-height:none!important;overflow:visible!important}}</style></head><body><header class="site-header">
+<style>.ce #productChoices{margin-top:12px;display:grid;gap:5px}.ce #productChoices label{margin-top:6px}.ce .prod:has(#productChoices){grid-column:span 1}</style><style>#printDevis{display:none}@media print{@page{margin:15mm}html,body{height:auto!important;min-height:0!important;margin:0!important;background:white!important}body>*:not(#printDevis){display:none!important}#printDevis{display:block!important;color:#111;font:11pt/1.45 Arial,sans-serif}#printDevis h1{font-size:18pt;margin:0 0 16px}#printDevis pre{white-space:pre-wrap;overflow-wrap:anywhere;font:inherit;margin:0;max-height:none;overflow:visible}}</style></head><body><header class="site-header">
   <div class="container site-header__inner">
     <a href="index.html" class="logo">
       <img src="../assets/img/logo-creme.png" alt="Logo L'Atelier des Mains" class="logo__mark">
@@ -307,7 +307,7 @@ $('addQuote').onclick=()=>{
  requestId=crypto.randomUUID();$('quoteHint').textContent=basket.length+' article(s) dans votre devis. Total : '+fmt(basket.reduce((sum,item)=>sum+item.totalCents,0)/100)+' CHF';if(!$('devis').hidden)showQuote();draw();
 };
 $('go').onclick=showQuote;
-$('printQuote').onclick=()=>{if(showQuote())window.print()};
+$('printQuote').onclick=()=>{if(showQuote()){$('printDevisText').textContent=$('dtext').textContent;window.print()}};
 $('copy').onclick=()=>{const t=$('dtext').textContent;navigator.clipboard.writeText(t).then(()=>{$('copy').textContent='Copié ✓'},()=>{const r=document.createRange();r.selectNodeContents($('dtext'));const s=getSelection();s.removeAllRanges();s.addRange(r);$('copy').textContent='Texte sélectionné, copiez-le'})};
 fetch('/api/invoice').then(response=>response.ok?response.json():null).then(data=>{paymentReady=data?.enabled===true;$('paymentHint').textContent=paymentReady?'Paiement direct du total du devis. Aucune validation manuelle nécessaire.':'Connexion PayPal en cours de configuration. Le devis peut déjà être calculé et imprimé.';draw()}).catch(()=>{$('paymentHint').textContent='PayPal est momentanément indisponible. Réessayez dans quelques instants.';draw()});
 $('paypal').onclick=async()=>{
@@ -324,4 +324,4 @@ function rs(){c.width=c.offsetWidth*devicePixelRatio;c.height=c.offsetHeight*dev
 function sn(){x.clearRect(0,0,c.width,c.height);x.fillStyle='rgba(243,220,160,.7)';fl.forEach(f=>{x.beginPath();x.arc(f.x,f.y,f.r,0,7);x.fill();if(!matchMedia('(prefers-reduced-motion: reduce)').matches){f.y+=f.s*devicePixelRatio;if(f.y>c.height)f.y=-5}});requestAnimationFrame(sn)}
 addEventListener('resize',rs);rs();sn();draw();
 })();
-</script></main><script src="../assets/js/lang-switch.js"></script></body></html>
+</script></main><script src="../assets/js/lang-switch.js"></script><section id="printDevis" aria-hidden="true"><h1>Ateliers des Mains — Devis</h1><pre id="printDevisText"></pre></section></body></html>
