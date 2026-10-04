@@ -3,7 +3,7 @@
 <title>Cadeaux d’entreprise personnalisés — L’Atelier des Mains</title>
 <meta name="description" content="Bougies artisanales pour les cadeaux de Noël de votre entreprise à Lausanne. Logo, adresse, téléphone, message et sac cadeau personnalisés. Devis dès 10 pièces.">
 <link rel="icon" href="../assets/img/logo.jpg"><link rel="stylesheet" href="../assets/css/style.css">
-<style>.ce #productChoices{margin-top:12px;display:grid;gap:5px}.ce #productChoices label{margin-top:6px}.ce .prod:has(#productChoices){grid-column:span 1}</style><style>@media print{body>*:not(main),main>section:not(.ce),.ce .hero,.ce .panel,.ce .stage,.ce .bag-preview,.ce #paypal,.ce #go,.ce #copy,.ce #printQuote,.ce #paymentHint{display:none!important}.ce .grid{display:block}.ce .preview{position:static}.ce .devis pre{white-space:pre-wrap;font-size:12pt}}</style></head><body><header class="site-header">
+<style>.ce #productChoices{margin-top:12px;display:grid;gap:5px}.ce #productChoices label{margin-top:6px}.ce .prod:has(#productChoices){grid-column:span 1}</style><style>@media print{body>*:not(main),main>section:not(.ce),.ce .hero,.ce .panel,.ce .stage,.ce .bag-preview,.ce #paypal,.ce #go,.ce #copy,.ce #printQuote,.ce #paymentHint{display:none!important}.ce .grid{display:block}.ce .preview{position:static}.ce .devis pre{white-space:pre-wrap;font-size:12pt;max-height:none!important;overflow:visible!important}}</style></head><body><header class="site-header">
   <div class="container site-header__inner">
     <a href="index.html" class="logo">
       <img src="../assets/img/logo-creme.png" alt="Logo L'Atelier des Mains" class="logo__mark">
@@ -183,7 +183,7 @@ Luca</textarea><div class="hint" id="ncount"></div></div>
  <div class="step"><h2><span>ÉTAPE 4</span>Quantité et contact</h2>
   <div class="row2"><div><label for="qty">Nombre de cadeaux</label><input type="number" id="qty" min="10" max="1000" step="1" required value="20"></div>
   <div><label for="date">Livraison souhaitée</label><input type="text" id="date" maxlength="100" placeholder="Date souhaitée"></div></div>
-  <label for="shipAddress">Adresse de livraison en Suisse</label><input id="shipAddress" autocomplete="street-address" maxlength="200" required placeholder="Rue et numéro"><div class="row2"><div><label for="shipPostal">Code postal</label><input id="shipPostal" autocomplete="postal-code" maxlength="20" required></div><div><label for="shipCity">Ville</label><input id="shipCity" autocomplete="address-level2" maxlength="200" required></div></div>
+  <label for="shipAddress">Adresse de livraison en Suisse</label><input type="text" id="shipAddress" autocomplete="street-address" maxlength="200" required placeholder="Rue et numéro"><div class="row2"><div><label for="shipPostal">Code postal</label><input type="text" id="shipPostal" autocomplete="postal-code" maxlength="20" required></div><div><label for="shipCity">Ville</label><input type="text" id="shipCity" autocomplete="address-level2" maxlength="200" required></div></div>
   <div class="row2"><div><label for="who">Votre nom</label><input type="text" id="who" maxlength="200" required placeholder="Prénom Nom"></div>
   <div><label for="mail">E-mail</label><input type="email" id="mail" maxlength="254" required placeholder="vous@entreprise.ch"></div></div>
  </div>
@@ -205,7 +205,7 @@ Luca</textarea><div class="hint" id="ncount"></div></div>
  <button class="btn" id="paypal" type="button" disabled>Payer le total du devis avec PayPal</button><p class="hint" id="paymentHint" role="status">Connexion PayPal en cours de configuration.</p><p class="hint">Votre logo, vos coordonnées et les options seront transmis au serveur du site et à PayPal pour préparer la commande et la facture. Après paiement, PayPal envoie votre reçu par email ; vous pouvez consulter et imprimer la facture PayPal.</p>
  <button class="btn" id="go" type="button">Obtenir mon devis</button>
  <div class="devis" id="devis" hidden>
-  <pre id="dtext"></pre>
+  <h2 id="devisTotal"></h2><pre id="dtext"></pre>
   <button class="btn" id="copy" type="button">Copier le devis</button><button class="btn" id="printQuote" type="button">Imprimer le devis / PDF</button>
   <p class="ct">Vérifiez le total du devis puis utilisez le bouton PayPal pour payer directement.</p>
  </div>
@@ -310,7 +310,7 @@ Adresse de livraison : ${$('shipAddress').value}, ${$('shipPostal').value} ${$('
 Livraison souhaitée : ${$('date').value||'—'}
 Prix unitaire : ${fmt(d.unit)} CHF / pièce
 Total devis : ${fmt(d.tot)} CHF`;
- $('dtext').textContent=t;$('devis').hidden=false;$('devis').scrollIntoView({behavior:'smooth',block:'nearest'});return true;}
+ $('devisTotal').textContent='Total devis : '+fmt(d.tot)+' CHF';$('dtext').textContent=t;$('devis').hidden=false;$('devis').scrollIntoView({behavior:'smooth',block:'nearest'});return true;}
 $('go').onclick=showQuote;
 $('printQuote').onclick=()=>{if(showQuote())window.print()};
 $('copy').onclick=()=>{const t=$('dtext').textContent;navigator.clipboard.writeText(t).then(()=>{$('copy').textContent='Copié ✓'},()=>{const r=document.createRange();r.selectNodeContents($('dtext'));const s=getSelection();s.removeAllRanges();s.addRange(r);$('copy').textContent='Texte sélectionné, copiez-le'})};
