@@ -1,5 +1,6 @@
 /* Liens PayPal dédiés aux tarifs entreprise. Remplir chaque URL après création du lien dans PayPal. */
 window.ADM_ENTERPRISE_PAYPAL = {
+  "ADM-TA": null,
   "ADM-CB-P": null,
   "ADM-CB-M": null,
   "ADM-CB-G": null,
