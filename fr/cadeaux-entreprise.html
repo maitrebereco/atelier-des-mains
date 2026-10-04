@@ -243,8 +243,7 @@ scope.querySelectorAll('input,textarea,select').forEach(el=>el.addEventListener(
 scope.querySelectorAll('input[name=p]').forEach(el=>el.addEventListener('change',()=>{sel=el.value;draw()}));
 let col='Rouge & blanc'; let colourProduct=null;
 $('colour').addEventListener('change',()=>{col=$('colour').value;draw()});
-scope.querySelectorAll('.dot').forEach(d=>d.onclick=()=>{scope.querySelectorAll('.dot').forEach(x=>x.classList.remove('on'));d.classList.add('on');col=d.dataset.c;$('swn').textContent=col;
- const optionSlot=scope.querySelector('.product-choice-slot[data-product="'+sel+'"]');if(optionSlot&&!optionSlot.contains($('productChoices'))) optionSlot.appendChild($('productChoices'));draw()});
+scope.querySelectorAll('.dot').forEach(d=>d.onclick=()=>{scope.querySelectorAll('.dot').forEach(x=>x.classList.remove('on'));d.classList.add('on');col=d.dataset.c;$('swn').textContent=col;draw()});
 const names=()=>$('names').value.split('\n').map(s=>s.trim()).filter(Boolean);
 function draw(){
  sel=scope.querySelector('input[name=p]:checked').value;
@@ -255,6 +254,7 @@ function draw(){
  const selectedImage=variants?'../assets/img/'+variants[col]:p.img;
  const productPhoto=scope.querySelector('input[name=p]:checked').closest('.prod').querySelector('img');if(productPhoto&&selectedImage)productPhoto.src=selectedImage;
  $('swn').textContent=col;
+ const optionSlot=scope.querySelector('.product-choice-slot[data-product="'+sel+'"]');if(optionSlot&&!optionSlot.contains($('productChoices'))) optionSlot.appendChild($('productChoices'));
 
  $('namesBox').hidden=!pn;
  if(pn){ $('ncount').textContent=nl.length+' prénom(s)'; if(nl.length>=10) $('qty').value=nl.length; }
