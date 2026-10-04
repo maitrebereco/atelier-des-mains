@@ -134,7 +134,7 @@
 .ce .bag-preview h2{font-family:var(--display);font-size:22px;color:var(--wine);margin:0 0 12px}
 .ce .preview>.stage,.ce .preview>.navn{display:none!important}.ce .bag-stage{position:relative;width:min(340px,100%);margin:auto}
 .ce .bag-stage>img{width:100%;display:block;border-radius:10px}
-.ce .bag-label{position:absolute;left:25%;top:42%;width:50%;background:#fff;border:1px solid var(--gold);border-radius:5px;padding:8px;text-align:center;font-size:10px;overflow-wrap:anywhere;max-height:54%;overflow:auto;box-shadow:0 2px 8px #0003}
+.ce .bag-label{position:absolute;left:40%;top:67%;transform:translate(-50%,-50%);width:46%;background:transparent;border:0;padding:0;text-align:center;font-size:12px;color:#fff2c9;overflow-wrap:anywhere;text-shadow:0 1px 2px #460813}.ce #bagZoom{margin:12px auto;display:block}.ce #bagDialog{width:min(850px,92vw);max-height:92vh;overflow:auto;border:1px solid var(--gold);border-radius:14px;padding:18px;background:#fff}.ce #bagDialog::backdrop{background:#0009}.ce #bagDialog .bag-stage{width:min(750px,100%)}.ce #bagDialog .bag-label{font-size:clamp(12px,2.5vw,25px)}.ce #bagDialog .bag-label img{max-width:35%;max-height:none;width:35%}.ce #bagDialog .bag-contact{font-size:clamp(10px,1.8vw,18px);white-space:pre-line}.ce #bagDialogClose{display:block;margin:0 0 12px auto}
 .ce .bag-label img{display:block;max-width:90px;max-height:65px;margin:0 auto 6px;object-fit:contain}
 .ce #bagContact{white-space:pre-line;font-size:9px}
 body{margin:0}
@@ -190,7 +190,7 @@ Luca</textarea><div class="hint" id="ncount"></div></div>
 </form>
 
 <aside class="preview">
- <div class="bag-preview" id="bagPreview"><h2>Aperçu du sac cadeau personnalisé</h2><div class="bag-stage"><img id="bagPhoto" alt="Sac cadeau rouge"><div class="bag-label"><div id="bagLogo"></div><b id="bagCompany"></b><div id="bagContact"></div></div></div><p class="hint">Votre logo et vos coordonnées sur le sac. Cochez « Sac cadeau rouge » pour l’inclure dans votre devis (+2,00 CHF par cadeau).</p></div>
+ <div class="bag-preview" id="bagPreview"><h2>Aperçu du sac cadeau personnalisé</h2><div class="bag-stage"><img id="bagPhoto" alt="Sac cadeau rouge"><div class="bag-label"><div id="bagLogo"></div><b id="bagCompany"></b><div id="bagContact"></div></div></div><button class="btn" id="bagZoom" type="button">Agrandir le sac 🔍</button><dialog id="bagDialog" aria-label="Aperçu agrandi du sac personnalisé"><button class="btn" id="bagDialogClose" type="button">Fermer ×</button><div id="bagZoomContent"></div></dialog><p class="hint">Votre logo et vos coordonnées sur le sac. Cochez « Sac cadeau rouge » pour l’inclure dans votre devis (+2,00 CHF par cadeau).</p></div>
  <div class="stage" id="stage"><canvas id="snow"></canvas>
   <div class="tag" id="tag"><div class="hole"></div>
    <div class="co"><div class="lg empty" id="tlg">VOTRE<br>LOGO</div><div class="cn" id="tco"></div></div><div class="company-details" id="tcontact"></div>
@@ -245,6 +245,8 @@ scope.querySelectorAll('input,textarea,select').forEach(el=>el.addEventListener(
 scope.querySelectorAll('input[name=p]').forEach(el=>el.addEventListener('change',()=>{sel=el.value;draw()}));
 let col='Rouge & blanc'; let colourProduct=null;
 $('colour').addEventListener('change',()=>{col=$('colour').value;draw()});
+$('bagZoom').onclick=()=>{const enlarged=$('bagPreview').querySelector('.bag-stage').cloneNode(true);enlarged.querySelectorAll('[id]').forEach(el=>{if(el.id==='bagContact')el.classList.add('bag-contact');el.removeAttribute('id')});$('bagZoomContent').replaceChildren(enlarged);$('bagDialog').showModal()};
+$('bagDialogClose').onclick=()=>$('bagDialog').close();
 scope.querySelectorAll('.prod img').forEach(img=>{const link=document.createElement('a');link.href=img.src;link.target='_blank';link.rel='noopener';link.setAttribute('aria-label','Voir la photo du produit dans un nouvel onglet');img.before(link);link.append(img);link.addEventListener('click',event=>event.stopPropagation());});
 $('bag').addEventListener('change',()=>{$('placement').value=$('bag').checked?'bag':'label';requestId=crypto.randomUUID();draw()});
 scope.querySelectorAll('.dot').forEach(d=>d.onclick=()=>{scope.querySelectorAll('.dot').forEach(x=>x.classList.remove('on'));d.classList.add('on');col=d.dataset.c;$('swn').textContent=col;draw()});
