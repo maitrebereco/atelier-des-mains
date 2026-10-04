@@ -190,6 +190,7 @@ Luca</textarea><div class="hint" id="ncount"></div></div>
 </form>
 
 <aside class="preview">
+ <div class="bag-preview" id="bagPreview"><h2>Aperçu du sac cadeau personnalisé</h2><div class="bag-stage"><img id="bagPhoto" alt="Sac cadeau rouge"><div class="bag-label"><div id="bagLogo"></div><b id="bagCompany"></b><div id="bagContact"></div></div></div><p class="hint">Votre logo et vos coordonnées sur le sac. Cochez « Sac cadeau rouge » pour l’inclure dans votre devis (+2,00 CHF par cadeau).</p></div>
  <div class="stage" id="stage"><canvas id="snow"></canvas>
   <div class="tag" id="tag"><div class="hole"></div>
    <div class="co"><div class="lg empty" id="tlg">VOTRE<br>LOGO</div><div class="cn" id="tco"></div></div><div class="company-details" id="tcontact"></div>
@@ -200,7 +201,7 @@ Luca</textarea><div class="hint" id="ncount"></div></div>
   </div>
  </div>
  <div class="navn" id="navn" hidden></div>
- <div class="bag-preview" id="bagPreview" hidden><h2>Aperçu du sac cadeau personnalisé</h2><div class="bag-stage"><img id="bagPhoto" alt="Sac cadeau rouge"><div class="bag-label"><div id="bagLogo"></div><b id="bagCompany"></b><div id="bagContact"></div></div></div><p class="hint">Visuel indicatif de l'étiquette apposée sur le sac.</p></div>
+
  <div class="sum" id="sum"></div>
  <p class="hint" id="paymentHint" role="status">Connexion PayPal en cours de configuration.</p><p class="hint">Votre logo, vos coordonnées et les options seront transmis au serveur du site et à PayPal pour préparer la commande et la facture. Après paiement, PayPal envoie votre reçu par email ; vous pouvez consulter et imprimer la facture PayPal.</p>
  <button class="btn" id="addQuote" type="button">Ajouter au devis</button><p id="quoteHint" role="status">Votre devis est vide.</p><button class="btn" id="go" type="button">Voir son devis</button><button class="btn" id="paypal" type="button" disabled>Payer le devis</button>
@@ -264,16 +265,17 @@ function draw(){
  const qty=Math.max(0,parseInt($('qty').value)||0);
  const details=[$('address').value.trim(),$('phone').value.trim(),$('website').value.trim()].filter(Boolean).join('\n');
  if(!$('bag').checked&&$('placement').value!=='label')$('placement').value='label';
- Array.from($('placement').options).forEach(option=>{option.disabled=option.value!=='label'&&!$('bag').checked});
+ if($('bag').checked&&$('placement').value==='label')$('placement').value='bag';
+ Array.from($('placement').options).forEach(option=>{option.disabled=$('bag').checked?option.value==='label':option.value!=='label'});
  const place=$('placement').value;
  $('tcontact').textContent=place==='bag'?'':details;
- $('bagPreview').hidden=!$('bag').checked;
+ $('bagPreview').hidden=false;
  $('bagPhoto').src=scope.querySelector('.bagimg').src;
- $('bagCompany').textContent=place==='label'?"L'Atelier des Mains":($('co').value||"Nom de l'entreprise");
- $('bagContact').textContent=place==='label'?'':details;
+ $('bagCompany').textContent=$('co').value||"Nom de l'entreprise";
+ $('bagContact').textContent=details;
  $('bagLogo').replaceChildren();
  if(logo){$('lgp').replaceChildren();const previewLogo=document.createElement('img');previewLogo.src=logo;previewLogo.alt="Logo de l'entreprise";$('lgp').appendChild(previewLogo);}
- if(logo && place!=='label'){const im=document.createElement('img');im.src=logo;im.alt="Logo de l'entreprise";$('bagLogo').appendChild(im);} 
+ if(logo){const im=document.createElement('img');im.src=logo;im.alt="Logo de l'entreprise";$('bagLogo').appendChild(im);} 
  $('tco').textContent=place==='bag'?"L'Atelier des Mains":($('co').value||"Nom de l'entreprise");
  $('tmsg').textContent=$('msg').value;
  $('timg').hidden=!p.img;if(p.img) $('timg').src=selectedImage;else $('timg').removeAttribute('src');
