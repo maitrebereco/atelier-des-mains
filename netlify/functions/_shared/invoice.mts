@@ -1,4 +1,4 @@
-import {enterpriseOptions} from './enterprise.mts';
+import {enterpriseOptions,enterpriseBundle} from './enterprise.mts';
 export const catalogue = [
  {ref:'ADM-TA',name:'Tasse de Noël',price:12,measures:'98 g · H 4,5 cm · 8 × 8 cm'},
  {ref:'ADM-LE',name:'Livre de Noël',price:26,measures:'107 g · 8,8 × 6,5 cm'},
@@ -11,7 +11,7 @@ export const catalogue = [
  {ref:'ADM-TBN',name:'Trio Bulles de Noël',price:39,measures:'329 g · 3 bougies + 2 fleurs · Coffret 30 × 14 cm'}
 ];
 export const fragrances=['Vanille','Cannelle–Vanille','Christmas Tree'];
-export function prepareInvoice(input:any){
+function prepareSingleInvoice(input:any){
  const enterprise=input.mode==='enterprise'?enterpriseOptions(input):null;
  if(input.mode&&input.mode!=='enterprise'&&input.mode!=='retail')throw new Error('Type de commande invalide.');
  const product=enterprise?.product||catalogue.find(p=>p.ref===input.ref);
@@ -26,6 +26,15 @@ export function prepareInvoice(input:any){
  if(input.country!=='CH')throw new Error('Pour une livraison hors de Suisse, contactez-nous.');
  const description=product.measures+' · Parfum : '+input.fragrance+(product.colours?' · Couleur : '+input.colour:'')+(enterprise?' · Étiquette entreprise'+(input.personalized?' · Prénom personnalisé (+1,50 CHF)':'')+(input.bag?' · Sac cadeau (+2,00 CHF)':''):'');
  return {detail:{currency_code:'CHF',reference:product.ref,payment_term:{term_type:'DUE_ON_RECEIPT'},note:'Bougie artisanale — Ateliers des Mains. Conservez le lien de cette facture pour la consulter et l’imprimer.'},invoicer:{business_name:'Ateliers des Mains',email_address:'maria.emerenciano21@gmail.com',website:'https://ateliersdesmains.com',address:{address_line_1:'Route Aloys-Fauquez 129',admin_area_2:'Lausanne',postal_code:'1018',country_code:'CH'}},primary_recipients:[{billing_info:{name:{full_name:name},email_address:email,...(enterprise?{business_name:enterprise.production.company}:{})},shipping_info:{name:{full_name:name},address:{address_line_1:address,admin_area_2:city,postal_code:postal,country_code:'CH'}}}],items:[{name:product.ref+' — '+product.name,description,quantity:String(input.quantity),unit_amount:{currency_code:'CHF',value:((enterprise?.unitCents??Math.round(product.price*100))/100).toFixed(2)}}],configuration:{allow_tip:false,partial_payment:{allow_partial_payment:false}}};
+}
+export function prepareInvoice(input:any){
+ if(input.mode==='enterprise'&&Array.isArray(input.items)){
+  const bundle:any=enterpriseBundle(input);
+  const invoices=bundle.orders.map(prepareSingleInvoice);
+  const invoice=invoices[0];invoice.items=invoices.flatMap((entry:any)=>entry.items);
+  invoice.detail.reference='Devis entreprise';return invoice;
+ }
+ return prepareSingleInvoice(input);
 }
 export function payerUrl(invoice:any){
  const link=invoice.detail?.metadata?.recipient_view_url||invoice.links?.find((l:any)=>l.rel==='payer-view')?.href;

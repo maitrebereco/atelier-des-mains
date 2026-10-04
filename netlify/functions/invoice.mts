@@ -1,5 +1,5 @@
 import {getStore} from '@netlify/blobs';
-import {enterpriseOptions,enterpriseCatalogue} from './_shared/enterprise.mts';
+import {enterpriseBundle,enterpriseCatalogue} from './_shared/enterprise.mts';
 import {createHash} from 'node:crypto';
 import {catalogue,fragrances,prepareInvoice,payerUrl} from './_shared/invoice.mts';
 const json=(body:any,status=200)=>new Response(JSON.stringify(body),{status,headers:{'Content-Type':'application/json','Cache-Control':'no-store'}});
@@ -14,7 +14,7 @@ export default async(req:Request)=>{
  if(!req.headers.get('content-type')?.startsWith('application/json'))return json({error:'Format invalide.'},415);
  const raw=await req.text();if(raw.length>1600000)return json({error:'Formulaire trop volumineux.'},413);
  let input:any,payload:any,production:any;
- try{input=JSON.parse(raw);if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(input.requestId))throw new Error('Commande invalide.');payload=prepareInvoice(input);if(input.mode==='enterprise'){production=enterpriseOptions(input).production;payload.detail.memo='Commande entreprise — fiche de personnalisation : https://ateliersdesmains.com/api/enterprise-order/'+input.requestId;}}catch(error:any){return json({error:error.message||'Formulaire invalide.'},400);}
+ try{input=JSON.parse(raw);if(!/^[0-9a-f]{8}-[0-9a-f]{4}-4[0-9a-f]{3}-[89ab][0-9a-f]{3}-[0-9a-f]{12}$/i.test(input.requestId))throw new Error('Commande invalide.');payload=prepareInvoice(input);if(input.mode==='enterprise'){production=enterpriseBundle(input).production;payload.detail.memo='Commande entreprise — fiche de personnalisation : https://ateliersdesmains.com/api/enterprise-order/'+input.requestId;}}catch(error:any){return json({error:error.message||'Formulaire invalide.'},400);}
  const fingerprint=createHash('sha256').update(JSON.stringify({payload,production})).digest('hex');
  try{
   const store=getStore({name:'paypal-invoices',consistency:'strong'});

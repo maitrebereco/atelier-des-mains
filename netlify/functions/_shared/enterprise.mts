@@ -175,3 +175,13 @@ export function enterpriseOptions(input:any){
  const unitCents=Math.round(product.price*100)+(input.personalized?150:0)+(input.bag?200:0);
  return {product,unitCents,totalCents:unitCents*input.quantity,production:{company,companyAddress,phone,website,message,deliveryDate,placement:input.placement,personalized:input.personalized,bag:input.bag,names,logo,ref:product.ref,productName:product.name,colour:input.colour,fragrance:input.fragrance,quantity:input.quantity,unitCents,totalCents:unitCents*input.quantity}};
 }
+export function enterpriseBundle(input:any){
+ if(!Array.isArray(input.items))return enterpriseOptions(input);
+ if(input.items.length<1||input.items.length>20)throw new Error('Ajoutez de 1 à 20 articles au devis.');
+ const allowed=['ref','quantity','fragrance','colour','personalized','names','bag','placement','message','deliveryDate'];
+ const orders=input.items.map((item:any)=>{if(!item||typeof item!=='object')throw new Error('Article invalide.');const selected:any={...input,items:undefined};for(const key of allowed)selected[key]=item[key];return selected;});
+ const entries=orders.map(enterpriseOptions);const quantity=entries.reduce((sum:any,e:any)=>sum+e.production.quantity,0);
+ if(quantity>1000)throw new Error('Le devis est limité à 1 000 cadeaux.');
+ const totalCents=entries.reduce((sum:any,e:any)=>sum+e.totalCents,0);
+ return {orders,totalCents,production:{...entries[0].production,ref:entries.map((e:any)=>e.product.ref).join(', '),productName:'Devis entreprise',quantity,totalCents,items:entries.map((e:any)=>e.production)}};
+}
