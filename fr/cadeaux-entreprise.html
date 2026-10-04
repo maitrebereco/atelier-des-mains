@@ -135,7 +135,7 @@
 .ce .bag-stage{position:relative;width:min(340px,100%);margin:auto}
 .ce .bag-stage>img{width:100%;display:block;border-radius:10px}
 .ce .bag-label{position:absolute;left:25%;top:42%;width:50%;background:#fff;border:1px solid var(--gold);border-radius:5px;padding:8px;text-align:center;font-size:10px;overflow-wrap:anywhere;max-height:54%;overflow:auto;box-shadow:0 2px 8px #0003}
-.ce .bag-label img{max-width:46px;max-height:40px;object-fit:contain}
+.ce .bag-label img{display:block;max-width:90px;max-height:65px;margin:0 auto 6px;object-fit:contain}
 .ce #bagContact{white-space:pre-line;font-size:9px}
 body{margin:0}
 .ce .photo-pending{aspect-ratio:1;display:grid;place-items:center;text-align:center;color:var(--muted);padding:16px;background:var(--bg);font-family:var(--display);font-size:19px}
@@ -244,6 +244,7 @@ scope.querySelectorAll('input,textarea,select').forEach(el=>el.addEventListener(
 scope.querySelectorAll('input[name=p]').forEach(el=>el.addEventListener('change',()=>{sel=el.value;draw()}));
 let col='Rouge & blanc'; let colourProduct=null;
 $('colour').addEventListener('change',()=>{col=$('colour').value;draw()});
+$('bag').addEventListener('change',()=>{$('placement').value=$('bag').checked?'bag':'label';requestId=crypto.randomUUID();draw()});
 scope.querySelectorAll('.dot').forEach(d=>d.onclick=()=>{scope.querySelectorAll('.dot').forEach(x=>x.classList.remove('on'));d.classList.add('on');col=d.dataset.c;$('swn').textContent=col;draw()});
 const names=()=>$('names').value.split('\n').map(s=>s.trim()).filter(Boolean);
 function draw(){
@@ -271,6 +272,7 @@ function draw(){
  $('bagCompany').textContent=place==='label'?"L'Atelier des Mains":($('co').value||"Nom de l'entreprise");
  $('bagContact').textContent=place==='label'?'':details;
  $('bagLogo').replaceChildren();
+ if(logo){$('lgp').replaceChildren();const previewLogo=document.createElement('img');previewLogo.src=logo;previewLogo.alt="Logo de l'entreprise";$('lgp').appendChild(previewLogo);}
  if(logo && place!=='label'){const im=document.createElement('img');im.src=logo;im.alt="Logo de l'entreprise";$('bagLogo').appendChild(im);} 
  $('tco').textContent=place==='bag'?"L'Atelier des Mains":($('co').value||"Nom de l'entreprise");
  $('tmsg').textContent=$('msg').value;
