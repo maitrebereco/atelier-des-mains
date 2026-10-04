@@ -203,7 +203,7 @@ Luca</textarea><div class="hint" id="ncount"></div></div>
  <div class="navn" id="navn" hidden></div>
 
  <div class="sum" id="sum"></div>
- <p class="hint" id="paymentHint" role="status">Connexion PayPal en cours de configuration.</p><p class="hint">Votre logo, vos coordonnées et les options seront transmis au serveur du site et à PayPal pour préparer la commande et la facture. Après paiement, PayPal envoie votre reçu par email ; vous pouvez consulter et imprimer la facture PayPal.</p>
+ <p class="hint" id="paymentHint" role="status">Connexion au paiement PayPal…</p><p class="hint">Votre logo, vos coordonnées et les options seront transmis au serveur du site et à PayPal pour préparer la commande et la facture. Après paiement, votre reçu est disponible dans PayPal. Vous pouvez imprimer votre devis depuis cette page.</p>
  <button class="btn" id="addQuote" type="button">Ajouter au devis</button><p id="quoteHint" role="status">Votre devis est vide.</p><button class="btn" id="go" type="button">Voir son devis</button><button class="btn" id="paypal" type="button" disabled>Payer le devis</button>
  <div class="devis" id="devis" hidden>
   <h2 id="devisTotal"></h2><div id="quoteItems"></div><pre id="dtext"></pre>
@@ -238,7 +238,7 @@ const P=[
  {id:'ADM-TBN',n:'Trio Bulles de Noël',d:'329 g · 3 bougies bulles + 2 fleurs · coffret 30 × 14 cm',p:20,img:'../assets/img/catalogue-trio.png'}];
 const scope=document.getElementById('cadeaux-entreprise');
 const $=s=>scope.querySelector('#'+s), fmt=n=>n.toFixed(2).replace('.',',');
-let logo=null, sel='ADM-CL-G', idx=0, paymentReady=false, requestId=crypto.randomUUID(), pendingPayment=false;const basket=[];
+let logo=null, sel='ADM-CL-G', idx=0, paymentReady=false, invoiceReady=false, requestId=crypto.randomUUID(), pendingPayment=false;const basket=[];
 $('prods').innerHTML=P.map(p=>`<label class="prod"><input type="radio" name="p" value="${p.id}" ${p.id===sel?'checked':''}>${p.img?`<img src="${p.img}" alt="${p.n}">`:`<div class="photo-pending">${p.n}</div>`}<div><span class="rf">${p.id}</span><b>${p.n}</b><small>${p.d}</small><div class="pr">${fmt(p.p)} CHF / pièce</div><div class="product-choice-slot" data-product="${p.id}"></div></div></label>`).join('');
 $('logo').addEventListener('change',e=>{const f=e.target.files[0];if(!f)return;if(f.size>1048576){alert('Le logo doit faire moins de 1 Mo.');e.target.value='';return;}if(!['image/png','image/jpeg'].includes(f.type)){alert('Choisissez un logo PNG ou JPG.');e.target.value='';return;}const r=new FileReader();r.onload=()=>{logo=r.result;draw()};r.readAsDataURL(f)});
 scope.querySelectorAll('input,textarea,select').forEach(el=>el.addEventListener('input',()=>{requestId=crypto.randomUUID();draw()}));
@@ -325,15 +325,16 @@ $('addQuote').onclick=()=>{
 $('go').onclick=showQuote;
 $('printQuote').onclick=()=>{if(showQuote()){$('printDevisText').textContent=$('dtext').textContent;window.print()}};
 $('copy').onclick=()=>{const t=$('dtext').textContent;navigator.clipboard.writeText(t).then(()=>{$('copy').textContent='Copié ✓'},()=>{const r=document.createRange();r.selectNodeContents($('dtext'));const s=getSelection();s.removeAllRanges();s.addRange(r);$('copy').textContent='Texte sélectionné, copiez-le'})};
-fetch('/api/invoice').then(response=>response.ok?response.json():null).then(data=>{paymentReady=data?.enabled===true;$('paymentHint').textContent=paymentReady?'Paiement direct du total du devis. Aucune validation manuelle nécessaire.':'Connexion PayPal en cours de configuration. Le devis peut déjà être calculé et imprimé.';draw()}).catch(()=>{$('paymentHint').textContent='PayPal est momentanément indisponible. Réessayez dans quelques instants.';draw()});
+Promise.allSettled([fetch('/api/invoice').then(r=>r.ok?r.json():null),fetch('/api/enterprise-checkout').then(r=>r.ok?r.json():null)]).then(results=>{invoiceReady=results[0].status==='fulfilled'&&results[0].value?.enabled===true;const cartReady=results[1].status==='fulfilled'&&results[1].value?.enabled===true;paymentReady=invoiceReady||cartReady;$('paymentHint').textContent=paymentReady?'Paiement du total du devis directement sur PayPal.':'Connexion au paiement indisponible. Rechargez la page pour réessayer.';draw()});
 $('paypal').onclick=async()=>{
  if(pendingPayment||!paymentReady||!showQuote())return;
  for(const id of ['co','who','mail','shipAddress','shipPostal','shipCity'])if(!$(id).reportValidity())return;
  const order={requestId,mode:'enterprise',items:basket.map(item=>({...item})),company:$('co').value.trim(),companyAddress:$('address').value.trim(),phone:$('phone').value.trim(),website:$('website').value.trim(),logo:logo||'',name:$('who').value.trim(),email:$('mail').value.trim(),address:$('shipAddress').value.trim(),postal:$('shipPostal').value.trim(),city:$('shipCity').value.trim(),country:'CH'};
  pendingPayment=true;draw();$('paymentHint').textContent='Préparation de votre facture PayPal…';
- try{const response=await fetch('/api/invoice',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(order)});const result=await response.json();if(!response.ok)throw new Error(result.error||'Paiement indisponible.');const url=new URL(result.invoiceUrl);if(url.protocol!=='https:'||url.hostname!=='www.paypal.com')throw new Error('Lien PayPal invalide.');location.assign(url.href);}
+ try{const response=await fetch(invoiceReady?'/api/invoice':'/api/enterprise-checkout',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(order)});const result=await response.json();if(!response.ok)throw new Error(result.error||'Paiement indisponible.');if(!invoiceReady){if(result.action!=='https://www.paypal.com/cgi-bin/webscr'||!result.fields||Math.round(result.totalCents)!==basket.reduce((sum,item)=>sum+item.totalCents,0))throw new Error('Paiement invalide.');const form=document.createElement('form');form.method='POST';form.action=result.action;for(const [key,value] of Object.entries(result.fields)){const field=document.createElement('input');field.type='hidden';field.name=key;field.value=String(value);form.appendChild(field)}document.body.appendChild(form);form.submit();return;}const url=new URL(result.invoiceUrl);if(url.protocol!=='https:'||url.hostname!=='www.paypal.com')throw new Error('Lien PayPal invalide.');location.assign(url.href);}
  catch(error){$('paymentHint').textContent=error.message||'PayPal est indisponible. Réessayez.';pendingPayment=false;draw();}
 };
+if(new URLSearchParams(location.search).has('paiement')){$('quoteHint').textContent='Retour de PayPal. Consultez votre compte PayPal ou votre reçu pour vérifier le paiement.';}
 // gold snow
 const c=$('snow'),x=c.getContext('2d');let fl=[];
 function rs(){c.width=c.offsetWidth*devicePixelRatio;c.height=c.offsetHeight*devicePixelRatio;fl=Array.from({length:40},()=>({x:Math.random()*c.width,y:Math.random()*c.height,r:(Math.random()*2+.8)*devicePixelRatio,s:Math.random()*.4+.15}))}
