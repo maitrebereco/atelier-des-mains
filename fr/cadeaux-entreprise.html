@@ -189,7 +189,7 @@ Luca</textarea><div class="hint" id="ncount"></div></div>
  </div>
 </form>
 
-<dialog id="productDialog" aria-labelledby="productDialogTitle"><button class="btn" id="productDialogClose" type="button" aria-label="Fermer">×</button><h2 id="productDialogTitle"></h2><img id="productDialogPhoto" alt=""><p id="productDialogInfo"></p><div id="productDialogOptions"></div><label for="productDialogQty">Quantité (minimum 10)</label><input id="productDialogQty" type="number" min="10" max="1000" value="20"><button class="btn" id="productDialogAdd" type="button">Ajouter au devis</button><p id="productDialogHint" role="status"></p></dialog><aside class="preview">
+<dialog id="productDialog" aria-labelledby="productDialogTitle"><button class="btn" id="productDialogClose" type="button" aria-label="Fermer">×</button><h2 id="productDialogTitle"></h2><img id="productDialogPhoto" alt=""><p id="productDialogInfo"></p><div id="productDialogOptions"></div><label for="productDialogQty">Quantité (minimum 10)</label><input id="productDialogQty" type="number" min="10" max="1000" value="20"><button class="btn" id="productDialogAdd" type="button">Ajouter au panier</button><p id="productDialogHint" role="status"></p></dialog><aside class="preview">
  <div class="bag-preview" id="bagPreview"><h2>Aperçu du sac cadeau personnalisé</h2><div class="bag-stage"><img id="bagPhoto" alt="Sac cadeau rouge"><div class="bag-label"><div id="bagLogo"></div><b id="bagCompany"></b><div id="bagContact"></div></div></div><label for="logoSize">Taille du logo sur le sac : <output id="logoSizeValue">65 %</output></label><div class="logo-size-controls"><button class="btn" id="logoSmaller" type="button" aria-label="Réduire le logo">−</button><input id="logoSize" type="hidden" value="65"><button class="btn" id="logoLarger" type="button" aria-label="Agrandir le logo">+</button></div><div class="logo-position-controls" aria-label="Position du logo"><input id="logoX" type="hidden" value="37"><input id="logoY" type="hidden" value="61"><button class="btn" id="logoLeft" type="button" aria-label="Déplacer à gauche">←</button><button class="btn" id="logoUp" type="button" aria-label="Déplacer vers le haut">↑</button><button class="btn" id="logoCenter" type="button">Centrer</button><button class="btn" id="logoDown" type="button" aria-label="Déplacer vers le bas">↓</button><button class="btn" id="logoRight" type="button" aria-label="Déplacer à droite">→</button></div><button class="btn" id="bagZoom" type="button">Agrandir le sac 🔍</button><dialog id="bagDialog" aria-label="Aperçu agrandi du sac personnalisé"><button class="btn" id="bagDialogClose" type="button">Fermer ×</button><div id="bagZoomContent"></div></dialog><p class="hint">Votre logo et vos coordonnées sur le sac. Cochez « Sac cadeau rouge » pour l’inclure dans votre devis (+2,00 CHF par cadeau).</p></div>
  <div class="stage" id="stage"><canvas id="snow"></canvas>
   <div class="tag" id="tag"><div class="hole"></div>
@@ -204,10 +204,10 @@ Luca</textarea><div class="hint" id="ncount"></div></div>
 
  <div class="sum" id="sum"></div>
  <p class="hint" id="paymentHint" role="status">Connexion au paiement PayPal…</p><p class="hint">Votre logo, vos coordonnées et les options seront transmis au serveur du site et à PayPal pour préparer la commande et la facture. Après paiement, votre reçu est disponible dans PayPal. Vous pouvez imprimer votre devis depuis cette page.</p>
- <button class="btn" id="addQuote" type="button">Ajouter au devis</button><p id="quoteHint" role="status">Votre devis est vide.</p><button class="btn" id="go" type="button">Voir son devis</button><button class="btn" id="paypal" type="button" disabled>Payer le devis</button>
+ <button class="btn" id="addQuote" type="button">Ajouter au panier</button><p id="quoteHint" role="status">Votre panier est vide.</p><button class="btn" id="go" type="button">Voir mon panier</button><button class="btn" id="paypal" type="button" disabled>Payer le panier</button>
  <div class="devis" id="devis" hidden>
   <h2 id="devisTotal"></h2><div id="quoteItems"></div><pre id="dtext"></pre>
-  <button class="btn" id="copy" type="button">Copier le devis</button><button class="btn" id="printQuote" type="button">Imprimer le devis / PDF</button>
+  <button class="btn" id="copy" type="button">Copier le panier</button><button class="btn" id="printQuote" type="button">Imprimer le panier / PDF</button>
   <p class="ct">Vérifiez le total du devis puis utilisez le bouton PayPal pour payer directement.</p>
  </div>
 </aside>
@@ -305,11 +305,11 @@ function draw(){
  window._d={p,pn,nl,qty,unit,tot};
 }
 function showQuote(){
- if(!basket.length){$('quoteHint').textContent='Ajoutez un article au devis avant de le consulter.';return false;}
+ if(!basket.length){$('quoteHint').textContent='Ajoutez un article au panier avant de le consulter.';return false;}
  const total=basket.reduce((sum,item)=>sum+item.totalCents,0);
- $('devisTotal').textContent='Total devis : '+fmt(total/100)+' CHF';
+ $('devisTotal').textContent='Total du panier : '+fmt(total/100)+' CHF';
  $('quoteItems').replaceChildren();
- basket.forEach((item,index)=>{const row=document.createElement('div'),text=document.createElement('p'),remove=document.createElement('button');text.textContent=item.quantity+' × '+item.ref+' — '+item.productName+' · '+fmt(item.unitCents/100)+' CHF / pièce · '+fmt(item.totalCents/100)+' CHF';remove.type='button';remove.textContent='Retirer cet article';remove.onclick=()=>{basket.splice(index,1);requestId=crypto.randomUUID();$('quoteHint').textContent=basket.length+' article(s) dans votre devis.';if(basket.length)showQuote();else $('devis').hidden=true;draw()};row.append(text,remove);$('quoteItems').append(row);});
+ basket.forEach((item,index)=>{const row=document.createElement('div'),text=document.createElement('p'),remove=document.createElement('button');text.textContent=item.quantity+' × '+item.ref+' — '+item.productName+' · '+fmt(item.unitCents/100)+' CHF / pièce · '+fmt(item.totalCents/100)+' CHF';remove.type='button';remove.textContent='Retirer cet article';remove.onclick=()=>{basket.splice(index,1);requestId=crypto.randomUUID();$('quoteHint').textContent=basket.length+' article(s) dans votre panier.';if(basket.length)showQuote();else $('devis').hidden=true;draw()};row.append(text,remove);$('quoteItems').append(row);});
  const lines=["Devis — Cadeaux d'entreprise",'Entreprise : '+($('co').value||'À compléter'),'Contact : '+($('who').value||'À compléter')+' · '+($('mail').value||'À compléter'),'Adresse de livraison : '+$('shipAddress').value+', '+$('shipPostal').value+' '+$('shipCity').value,''];
  basket.forEach((item,index)=>{lines.push('ARTICLE '+(index+1)+' — '+item.ref+' · '+item.productName,'Taille du logo : '+(item.logoScale||65)+' % de la zone de personnalisation du sac','Position du logo : '+(item.logoX??37)+' % horizontal, '+(item.logoY??61)+' % vertical','Couleur : '+item.colour,'Parfum : '+item.fragrance,'Quantité : '+item.quantity,'Message : '+item.message,'Prénoms : '+(item.personalized?item.names.join(', '):'sans personnalisation'),'Sac cadeau : '+(item.bag?'oui (+2,00 CHF / pièce)':'non'),'Coordonnées personnalisées sur : '+item.placement,'Livraison souhaitée : '+(item.deliveryDate||'—'),'Prix unitaire : '+fmt(item.unitCents/100)+' CHF','Total article : '+fmt(item.totalCents/100)+' CHF','');});
  lines.push('TOTAL DEVIS : '+fmt(total/100)+' CHF');$('dtext').textContent=lines.join('\n');$('devis').hidden=false;$('devis').scrollIntoView({behavior:'smooth',block:'nearest'});return true;
@@ -320,7 +320,7 @@ $('addQuote').onclick=()=>{
  if(d.pn&&d.nl.length!==d.qty){$('names').setCustomValidity('Indiquez un prénom par cadeau.');$('names').reportValidity();$('names').setCustomValidity('');return;}
  if(basket.length>=20||basket.reduce((sum,item)=>sum+item.quantity,0)+d.qty>1000){$('quoteHint').textContent='Maximum : 20 articles et 1 000 cadeaux par devis.';return;}
  basket.push({ref:d.p.id,productName:d.p.n,quantity:d.qty,fragrance:$('frag').value,colour:col,personalized:d.pn,names:d.pn?[...d.nl]:[],bag:$('bag').checked,placement:$('placement').value,message:$('msg').value.trim(),deliveryDate:$('date').value.trim(),logoScale:Number($('logoSize').value),logoX:Number($('logoX').value),logoY:Number($('logoY').value),unitCents:Math.round(d.unit*100),totalCents:Math.round(d.unit*100)*d.qty});
- requestId=crypto.randomUUID();$('quoteHint').textContent=basket.length+' article(s) dans votre devis. Total : '+fmt(basket.reduce((sum,item)=>sum+item.totalCents,0)/100)+' CHF';if(!$('devis').hidden)showQuote();draw();
+ requestId=crypto.randomUUID();$('quoteHint').textContent=basket.length+' article(s) dans votre panier. Total : '+fmt(basket.reduce((sum,item)=>sum+item.totalCents,0)/100)+' CHF';if(!$('devis').hidden)showQuote();draw();
 };
 $('go').onclick=showQuote;
 $('printQuote').onclick=()=>{if(showQuote()){$('printDevisText').textContent=$('dtext').textContent;window.print()}};
