@@ -19,4 +19,4 @@ export default async(req:Request)=>{
   return json({action:'https://www.paypal.com/cgi-bin/webscr',fields:checkout.fields,totalCents:checkout.totalCents});
  }catch{return json({error:'Votre devis ne peut pas être enregistré pour le moment. Réessayez.'},502)}
 };
-export const config={path:'/api/enterprise-checkout',rateLimit:{windowLimit:5,windowSize:60,aggregateBy:['ip','domain']}};
+export const config={path:'/api/enterprise-checkout',rateLimit:{windowLimit:30,windowSize:60,aggregateBy:['ip','domain']}};
