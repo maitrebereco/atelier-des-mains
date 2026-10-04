@@ -162,6 +162,7 @@ export function enterpriseOptions(input:any){
  if(!Array.isArray(input.names)||input.names.length>1000||input.names.some((n:any)=>typeof n!=='string'||!n.trim()||n.trim().length>80))throw new Error('Liste des prénoms invalide.');
  const names=input.personalized?input.names.map((n:string)=>n.trim()):[];
  if(input.personalized&&names.length!==input.quantity)throw new Error('Indiquez un prénom par cadeau.');
+ const logoScale=input.logoScale??65;if(!Number.isInteger(logoScale)||logoScale<25||logoScale>100)throw new Error('Taille du logo invalide.');
  let logo='';
  if(input.logo){
   if(typeof input.logo!=='string')throw new Error('Logo invalide.');
@@ -173,12 +174,12 @@ export function enterpriseOptions(input:any){
   logo=input.logo;
  }
  const unitCents=Math.round(product.price*100)+(input.personalized?150:0)+(input.bag?200:0);
- return {product,unitCents,totalCents:unitCents*input.quantity,production:{company,companyAddress,phone,website,message,deliveryDate,placement:input.placement,personalized:input.personalized,bag:input.bag,names,logo,ref:product.ref,productName:product.name,colour:input.colour,fragrance:input.fragrance,quantity:input.quantity,unitCents,totalCents:unitCents*input.quantity}};
+ return {product,unitCents,totalCents:unitCents*input.quantity,production:{company,companyAddress,phone,website,message,deliveryDate,placement:input.placement,personalized:input.personalized,bag:input.bag,names,logo,logoScale,ref:product.ref,productName:product.name,colour:input.colour,fragrance:input.fragrance,quantity:input.quantity,unitCents,totalCents:unitCents*input.quantity}};
 }
 export function enterpriseBundle(input:any){
  if(!Array.isArray(input.items))return enterpriseOptions(input);
  if(input.items.length<1||input.items.length>20)throw new Error('Ajoutez de 1 à 20 articles au devis.');
- const allowed=['ref','quantity','fragrance','colour','personalized','names','bag','placement','message','deliveryDate'];
+ const allowed=['ref','quantity','fragrance','colour','personalized','names','bag','placement','message','deliveryDate','logoScale'];
  const orders=input.items.map((item:any)=>{if(!item||typeof item!=='object')throw new Error('Article invalide.');const selected:any={...input,items:undefined};for(const key of allowed)selected[key]=item[key];return selected;});
  const entries=orders.map(enterpriseOptions);const quantity=entries.reduce((sum:any,e:any)=>sum+e.production.quantity,0);
  if(quantity>1000)throw new Error('Le devis est limité à 1 000 cadeaux.');
