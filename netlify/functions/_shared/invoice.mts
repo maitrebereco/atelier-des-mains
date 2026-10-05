@@ -1,3 +1,4 @@
+import {countries} from '../../../assets/js/shipping.mjs';
 import {enterpriseOptions,enterpriseBundle} from './enterprise.mts';
 export const catalogue = [
  {ref:'ADM-TA',name:'Tasse de Noël',price:12,measures:'98 g · H 4,5 cm · 8 × 8 cm'},
@@ -22,10 +23,10 @@ function prepareSingleInvoice(input:any){
  const field=(key:string,max=200)=>{const value=input[key];if(typeof value!=='string'||!value.trim()||value.trim().length>max)throw new Error('Veuillez vérifier vos coordonnées.');return value.trim();};
  const email=field('email',254);if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))throw new Error('Email invalide.');
  const name=field('name');const address=field('address');const city=field('city');const postal=field('postal',20);
- // Delivery is currently limited to Switzerland; no international shipping price was supplied.
- if(input.country!=='CH')throw new Error('Pour une livraison hors de Suisse, contactez-nous.');
+ // Enterprise delivery supports the countries in the shared postal tariff table.
+ if(enterprise?!countries.some(c=>c[0]===input.country):input.country!=='CH')throw new Error('Pays de livraison invalide.');
  const description=product.measures+' · Parfum : '+input.fragrance+(product.colours?' · Couleur : '+input.colour:'')+(enterprise?' · Étiquette entreprise'+(input.personalized?' · Prénom personnalisé (+1,50 CHF)':'')+(input.bag?' · Sac cadeau (+2,00 CHF)':''):'');
- return {detail:{currency_code:'CHF',reference:product.ref,payment_term:{term_type:'DUE_ON_RECEIPT'},note:'Bougie artisanale — Ateliers des Mains. Conservez le lien de cette facture pour la consulter et l’imprimer.'},invoicer:{business_name:'Ateliers des Mains',email_address:'maria.emerenciano21@gmail.com',website:'https://ateliersdesmains.com',address:{address_line_1:'Route Aloys-Fauquez 129',admin_area_2:'Lausanne',postal_code:'1018',country_code:'CH'}},primary_recipients:[{billing_info:{name:{full_name:name},email_address:email,...(enterprise?{business_name:enterprise.production.company}:{})},shipping_info:{name:{full_name:name},address:{address_line_1:address,admin_area_2:city,postal_code:postal,country_code:'CH'}}}],items:[{name:product.ref+' — '+product.name,description,quantity:String(input.quantity),unit_amount:{currency_code:'CHF',value:((enterprise?.unitCents??Math.round(product.price*100))/100).toFixed(2)}}],configuration:{allow_tip:false,partial_payment:{allow_partial_payment:false}}};
+ return {detail:{currency_code:'CHF',reference:product.ref,payment_term:{term_type:'DUE_ON_RECEIPT'},note:'Bougie artisanale — Ateliers des Mains. Conservez le lien de cette facture pour la consulter et l’imprimer.'},invoicer:{business_name:'Ateliers des Mains',email_address:'maria.emerenciano21@gmail.com',website:'https://ateliersdesmains.com',address:{address_line_1:'Route Aloys-Fauquez 129',admin_area_2:'Lausanne',postal_code:'1018',country_code:'CH'}},primary_recipients:[{billing_info:{name:{full_name:name},email_address:email,...(enterprise?{business_name:enterprise.production.company}:{})},shipping_info:{name:{full_name:name},address:{address_line_1:address,admin_area_2:city,postal_code:postal,country_code:input.country}}}],items:[{name:product.ref+' — '+product.name,description,quantity:String(input.quantity),unit_amount:{currency_code:'CHF',value:((enterprise?.unitCents??Math.round(product.price*100))/100).toFixed(2)}}],configuration:{allow_tip:false,partial_payment:{allow_partial_payment:false}}};
 }
 export function prepareInvoice(input:any){
  if(input.mode==='enterprise'&&Array.isArray(input.items)){
