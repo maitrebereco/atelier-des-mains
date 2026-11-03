@@ -3,11 +3,11 @@ let invoiceEnabled=false;const updates=[];
 document.querySelectorAll('.new-candle-gallery .product-card').forEach(card=>{
  const link=card.querySelector('.product-card__footer a'),paypal=card.querySelector('.candle-paypal');
  const update=()=>{
-  const name=card.querySelector('h2').textContent,perfume=card.querySelector('.candle-fragrance').value,colour=card.querySelector('.candle-colour');
+  const name=card.querySelector('h2').textContent,perfume=card.querySelector('.candle-fragrance').value,colour=card.querySelector('.candle-colour'),decor=card.querySelector('.candle-decor');
   if(colour){const image=card.querySelector('.product-card__img img');const photos={'Rouge et vert':'catalogue-boule-rouge-vert.png','Noir et blanc':'catalogue-boule-noir-blanc.png','Rouge et blanc':'catalogue-boule.png'};image.src='../assets/img/'+photos[colour.value];image.alt=name+' — '+colour.value;}
   const price=card.querySelector('.price').textContent;
-  link.href='https://wa.me/41767522703?text='+encodeURIComponent('Bonjour, je souhaite commander : '+card.dataset.productRef+' · '+name+' · '+price+' · Parfum : '+perfume+(colour?' · Couleur : '+colour.value:''));
-  if(invoiceEnabled&&paypal){const params=new URLSearchParams({ref:card.dataset.productRef,fragrance:perfume});if(colour)params.set('colour',colour.value);paypal.href='/facture.html?'+params.toString();}
+  link.href='https://wa.me/41767522703?text='+encodeURIComponent('Bonjour, je souhaite commander : '+card.dataset.productRef+' · '+name+' · '+price+' · Parfum : '+perfume+(colour?' · Couleur : '+colour.value:'')+(decor?' · Décoration : '+decor.value:''));
+  if(invoiceEnabled&&paypal){const params=new URLSearchParams({ref:card.dataset.productRef,fragrance:perfume});if(colour)params.set('colour',colour.value);if(decor)params.set('decoration',decor.value);paypal.href='/facture.html?'+params.toString();}
  };
  updates.push(update);card.querySelectorAll('select').forEach(select=>select.addEventListener('change',update));update();
 });
