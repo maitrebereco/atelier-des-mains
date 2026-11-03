@@ -9,6 +9,7 @@ export const catalogue = [
  {ref:'ADM-SA',name:'Sapin de Noël',price:15,measures:'190 g · H 12,5 cm · 7 × 7 cm'},
  {ref:'ADM-PP',name:'Pomme de pin',price:12,measures:'105 g · H 9 cm · 5,5 × 4 cm'},
  {ref:'ADM-KND',name:'Coffret de Noël',price:39,measures:'442 g · Coffret 30 × 14 cm'},
+ {ref:'ADM-BML',name:'Bougie en boîte métal',price:12,measures:'133 g · boîte métal Ø 7,5 cm · H 7 cm',fragrances:['Litchi épicé'],decorations:['Étoile de Noël','Automne Doré']},
  {ref:'ADM-TBN',name:'Trio Bulles de Noël',price:39,measures:'329 g · 3 bougies + 2 fleurs · Coffret 30 × 14 cm'}
 ];
 export const fragrances=['Vanille','Cannelle–Vanille','Christmas Tree'];
@@ -18,14 +19,15 @@ function prepareSingleInvoice(input:any){
  const product=enterprise?.product||catalogue.find(p=>p.ref===input.ref);
  if(!product)throw new Error('Article invalide.');
  if(!enterprise&&(!Number.isInteger(input.quantity)||input.quantity<1||input.quantity>100))throw new Error('Quantité : de 1 à 100.');
- if(!fragrances.includes(input.fragrance))throw new Error('Parfum invalide.');
+ if(!(product.fragrances||fragrances).includes(input.fragrance))throw new Error('Parfum invalide.');
  if(!enterprise&&product.colours&&!product.colours.includes(input.colour))throw new Error('Couleur invalide.');
+ if(!enterprise&&product.decorations&&!product.decorations.includes(input.decoration))throw new Error('Décoration invalide.');
  const field=(key:string,max=200)=>{const value=input[key];if(typeof value!=='string'||!value.trim()||value.trim().length>max)throw new Error('Veuillez vérifier vos coordonnées.');return value.trim();};
  const email=field('email',254);if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email))throw new Error('Email invalide.');
  const name=field('name');const address=field('address');const city=field('city');const postal=field('postal',20);
  // Enterprise delivery supports the countries in the shared postal tariff table.
  if(enterprise?!countries.some(c=>c[0]===input.country):input.country!=='CH')throw new Error('Pays de livraison invalide.');
- const description=product.measures+' · Parfum : '+input.fragrance+(product.colours?' · Couleur : '+input.colour:'')+(enterprise?' · Étiquette entreprise'+(input.personalized?' · Prénom personnalisé (+1,50 CHF)':'')+(input.bag?' · Sac cadeau (+2,00 CHF)':''):'');
+ const description=product.measures+' · Parfum : '+input.fragrance+(product.colours?' · Couleur : '+input.colour:'')+(product.decorations?' · Décoration : '+input.decoration:'')+(enterprise?' · Étiquette entreprise'+(input.personalized?' · Prénom personnalisé (+1,50 CHF)':'')+(input.bag?' · Sac cadeau (+2,00 CHF)':''):'');
  return {detail:{currency_code:'CHF',reference:product.ref,payment_term:{term_type:'DUE_ON_RECEIPT'},note:'Bougie artisanale — Ateliers des Mains. Conservez le lien de cette facture pour la consulter et l’imprimer.'},invoicer:{business_name:'Ateliers des Mains',email_address:'maria.emerenciano21@gmail.com',website:'https://ateliersdesmains.com',address:{address_line_1:'Route Aloys-Fauquez 129',admin_area_2:'Lausanne',postal_code:'1018',country_code:'CH'}},primary_recipients:[{billing_info:{name:{full_name:name},email_address:email,...(enterprise?{business_name:enterprise.production.company}:{})},shipping_info:{name:{full_name:name},address:{address_line_1:address,admin_area_2:city,postal_code:postal,country_code:input.country}}}],items:[{name:product.ref+' — '+product.name,description,quantity:String(input.quantity),unit_amount:{currency_code:'CHF',value:((enterprise?.unitCents??Math.round(product.price*100))/100).toFixed(2)}}],configuration:{allow_tip:false,partial_payment:{allow_partial_payment:false}}};
 }
 export function prepareInvoice(input:any){
