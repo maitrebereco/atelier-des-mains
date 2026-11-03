@@ -543,3 +543,8 @@ p { margin: 0 0 1em; }
 }
 
 .product-options{display:flex;flex-wrap:wrap;gap:.45rem;margin:.8rem 0}.product-option{border:1px solid #b98b61;background:#fffaf4;color:#4b2f21;border-radius:999px;padding:.45rem .7rem;font:inherit;cursor:pointer}.product-option:hover,.product-option.is-selected{background:#6f3f21;color:#fff;border-color:#6f3f21}.product-option:focus-visible{outline:3px solid rgba(111,63,33,.25);outline-offset:2px}
+
+/* Fiche détaillée produit (ingrédients, précautions, lot) */
+.product-card__info { font-size: .82rem; margin: 0 0 1em; }
+.product-card__info summary { cursor: pointer; font-weight: 600; margin-bottom: .5em; }
+.product-card__info p { margin: 0 0 .5em; line-height: 1.45; }
